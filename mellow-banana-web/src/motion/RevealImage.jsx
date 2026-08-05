@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
 import { EASE, DUR, SPRING } from './tokens'
 import { useReveal } from './useReveal'
+import imageSizes from '../data/imageSizes.json'
 
 /** Overscale the picture sits at once settled — this is the headroom the drift moves inside. */
 const REST_SCALE = 1.12
@@ -44,15 +45,25 @@ export default function RevealImage({
 
   const restScale = contain ? 1 : REST_SCALE
 
+  /*
+    Intrinsic size from src/data/imageSizes.json (regenerate it when assets
+    change). Without it a figure with no aspect class is 0px tall until it
+    loads, and a 0px-tall image never satisfies the browser's lazy-load check —
+    so it stays 0px forever and the case study renders empty.
+  */
+  const size = imageSizes[src?.split('/').pop()]
+
   const img = (
     <motion.img
       src={src}
       alt={alt}
+      width={size?.[0]}
+      height={size?.[1]}
       loading={eager ? 'eager' : 'lazy'}
       initial={reduced ? false : { scale: restScale + 0.06 }}
       animate={reduced ? undefined : { scale: visible ? restScale : restScale + 0.06 }}
       transition={{ duration: 1.5, ease: EASE, delay }}
-      className={`w-full ${contain ? 'object-contain' : 'object-cover'} ${imgClassName}`}
+      className={`h-auto w-full ${contain ? 'object-contain' : 'object-cover'} ${imgClassName}`}
     />
   )
 

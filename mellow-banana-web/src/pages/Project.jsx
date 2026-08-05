@@ -89,8 +89,9 @@ export default function Project() {
         </Reveal>
 
         <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {others.map((other, i) => (
-            <ProjectCard key={other.slug} project={other} ratio="aspect-16/10" delay={i * 0.11} />
+          {/* Unmask in step, so no card in the row ever looks smaller than its neighbour. */}
+          {others.map((other) => (
+            <ProjectCard key={other.slug} project={other} ratio="aspect-16/10" />
           ))}
         </div>
       </section>

@@ -62,13 +62,12 @@ export default function Work() {
             transition={{ duration: DUR.fast, ease: EASE }}
             className="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {visible.map((project, i) => (
-              <ProjectCard
-                key={project.slug}
-                project={project}
-                ratio="aspect-4/3"
-                delay={(i % 3) * 0.1}
-              />
+            {/*
+              No per-card delay: cards sitting side by side have to unmask in
+              step, otherwise mid-reveal a neighbour reads as a smaller image.
+            */}
+            {visible.map((project) => (
+              <ProjectCard key={project.slug} project={project} ratio="aspect-4/3" />
             ))}
           </motion.div>
         ) : (

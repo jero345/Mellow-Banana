@@ -48,13 +48,12 @@ function Pillar({ pillar, index }) {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {works.map((project, i) => (
+        {works.map((project) => (
           <ProjectCard
             key={`${pillar.key}-${project.slug}`}
             project={project}
             ratio="aspect-4/3"
             showMeta={false}
-            delay={i * 0.1}
           />
         ))}
       </div>
@@ -159,7 +158,7 @@ export default function About() {
         </Reveal>
 
         <RevealImage
-          src="/assets/team-office.jpg"
+          src="/assets/team-studio.jpg"
           alt={t('about.05.alt')}
           className="mt-12 rounded-xl"
           imgClassName="aspect-21/9"

@@ -3,17 +3,17 @@
 export const dictionary = {
   es: {
     /* nav */
-    'nav.work': 'Work',
-    'nav.about': 'About',
-    'nav.contact': 'Contact',
+    'nav.work': 'Proyectos',
+    'nav.about': 'Nosotros',
+    'nav.contact': 'Contacto',
     'nav.menu': 'Menú',
     'nav.close': 'Cerrar',
     'nav.skip': 'Ir al contenido',
 
-    /* home — hero */
+    /* home — hero: the claim stays in English, as on the artboard. */
     'home.hero.line': 'Brands that matters',
-    'home.hero.play': 'Play Reel',
-    'home.hero.scroll': 'Scroll',
+    'home.hero.play': 'Ver reel',
+    'home.hero.scroll': 'Desliza',
 
     /* home — intro */
     'home.intro.title': 'Somos una\nconsultora\nde branding',
@@ -44,7 +44,7 @@ export const dictionary = {
     'footer.rights': 'Todos los derechos reservados.',
 
     /* work index */
-    'work.title': 'Work',
+    'work.title': 'Proyectos',
     'work.lead':
       'Marcas que construimos desde la estrategia. Filtra por tipo de trabajo para ver el proceso detrás de cada una.',
     'work.filter.all': 'Todos',
@@ -102,7 +102,7 @@ export const dictionary = {
     'contact.work.title': 'Trabaja con\nnosotros',
     'form.name': 'Nombre',
     'form.company': 'Empresa',
-    'form.mail': 'Mail',
+    'form.mail': 'Correo',
     'form.phone': 'Número celular',
     'form.message': 'Mensaje',
     'form.submit': 'enviar mensaje',

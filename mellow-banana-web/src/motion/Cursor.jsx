@@ -32,7 +32,8 @@ export default function Cursor() {
     const onMove = (event) => {
       mx.set(event.clientX)
       my.set(event.clientY)
-      setVisible(true)
+      // Areas that bring their own cursor (the hero reel orb) opt out.
+      setVisible(!event.target?.closest?.('[data-cursor-hidden]'))
       setHot(!!event.target?.closest?.(INTERACTIVE))
     }
     const onLeave = () => setVisible(false)

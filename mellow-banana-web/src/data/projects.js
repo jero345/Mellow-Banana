@@ -246,6 +246,81 @@ export const projects = [
     ],
   },
 
+  /* ─────────────────────────────────── Golty ───────────────────────────── */
+  {
+    slug: 'golty',
+    featured: true,
+    year: 2025,
+    client: { es: 'Golty', en: 'Golty' },
+    shortTitle: { es: 'Golty', en: 'Golty' },
+    tagline: { es: 'DESPIERTA\nTU GRANDEZA', en: 'AWAKEN\nYOUR GREATNESS' },
+    sector: { es: 'Deporte', en: 'Sport' },
+    categories: ['marca', 'estrategia'],
+    cover: '/assets/golty-hero.jpg',
+    coverAlt: {
+      es: 'Deportistas chocando las manos con el logo de Golty',
+      en: 'Athletes high-fiving with the Golty logo',
+    },
+    intro: [
+      {
+        es: 'Una marca deportiva colombiana que tenía que hablarle por igual al fútbol profesional y a quien entrena en la cancha del barrio. Construimos un territorio donde el triunfo no es un podio: es algo que se despierta todos los días.',
+        en: 'A Colombian sports brand that had to speak to professional football and to whoever trains on the neighbourhood pitch alike. We built a territory where winning is not a podium: it is something you wake up every day.',
+      },
+    ],
+    blocks: [
+      {
+        kind: 'full',
+        src: '/assets/golty-pitch.jpg',
+        alt: {
+          es: 'Balón en la cancha al atardecer con el claim Despierta tu grandeza',
+          en: 'Ball on the pitch at sunset with the claim Awaken your greatness',
+        },
+      },
+      {
+        kind: 'text',
+        copy: [
+          {
+            es: 'El sistema se apoya en un gesto simple: la marca siempre acompaña a un cuerpo en movimiento. Fotografía cercana, tipografía en diagonal y un rojo que funciona como señal, no como fondo.',
+            en: 'The system rests on one simple gesture: the brand always travels with a body in motion. Close photography, type set on the diagonal and a red that works as a signal, not as a background.',
+          },
+        ],
+      },
+      {
+        kind: 'full',
+        src: '/assets/golty-ooh.jpg',
+        alt: {
+          es: 'Vallas de Golty en la ciudad y aplicación en indumentaria de tenis',
+          en: 'Golty billboards in the city and the brand applied to tennis apparel',
+        },
+      },
+      {
+        kind: 'full',
+        src: '/assets/golty-latir.jpg',
+        alt: {
+          es: 'Campaña del balón Latir, balón oficial del fútbol profesional colombiano',
+          en: 'Latir campaign, official ball of Colombian professional football',
+        },
+      },
+      {
+        kind: 'text',
+        copy: [
+          {
+            es: 'De la cancha a la calle: la misma marca sostiene el balón oficial del torneo, la valla en la ciudad y la camiseta de quien sale a correr un martes cualquiera.',
+            en: 'From the pitch to the street: the same brand holds the tournament’s official ball, the billboard in the city and the shirt of whoever goes out running on any given Tuesday.',
+          },
+        ],
+      },
+      {
+        kind: 'full',
+        src: '/assets/golty-women.jpg',
+        alt: {
+          es: 'Campaña de entrenamiento femenino con indumentaria Golty',
+          en: 'Women’s training campaign wearing Golty apparel',
+        },
+      },
+    ],
+  },
+
   /* ───────────────────────────────── Manantial ─────────────────────────── */
   {
     slug: 'manantial',
@@ -265,6 +340,162 @@ export const projects = [
       {
         es: 'El proyecto inicia con entender la nueva percepción del concepto Premium. Lo que antes era sobre producido, desaparece para dar paso a universos mas limpios y con menos elementos. Esto fue fundamental para entender la importancia de explorar otras categorías como fuente de inspiración.',
         en: 'The project starts by understanding the new perception of Premium. What used to be over-produced gives way to cleaner universes with fewer elements. That was key to seeing how important it is to look at other categories as a source of inspiration.',
+      },
+    ],
+    blocks: [
+      {
+        kind: 'full',
+        src: '/assets/manantial-bottle.jpg',
+        alt: {
+          es: 'Detalle de la botella de Manantial con el trazo de agua',
+          en: 'Close-up of the Manantial bottle with its water stroke',
+        },
+      },
+      {
+        kind: 'text',
+        copy: [
+          {
+            es: 'El resultado es un sistema que respira: una línea de agua que recorre el empaque, la comunicación y las piezas digitales, y que le da a la marca un gesto reconocible incluso sin el logo.',
+            en: 'The result is a system that breathes: a water line running across pack, communication and digital pieces, giving the brand a gesture you recognise even without the logo.',
+          },
+        ],
+      },
+      {
+        kind: 'duo',
+        items: [
+          {
+            src: '/assets/manantial-people.jpg',
+            alt: {
+              es: 'Universo fotográfico de la marca Manantial',
+              en: 'Photographic universe of the Manantial brand',
+            },
+          },
+          {
+            src: '/assets/manantial-app.jpg',
+            alt: {
+              es: 'Piezas digitales de Manantial en pantallas de móvil',
+              en: 'Manantial digital pieces on mobile screens',
+            },
+          },
+        ],
+      },
+      {
+        kind: 'full',
+        src: '/assets/manantial-system.jpg',
+        alt: {
+          es: 'Sistema gráfico de Manantial: empaque, texturas de agua y piezas de campaña',
+          en: 'Manantial graphic system: pack, water textures and campaign pieces',
+        },
+      },
+    ],
+  },
+
+  /* ─────────────────────────────────── Kumis ───────────────────────────── */
+  {
+    slug: 'kumis',
+    featured: true,
+    year: 2025,
+    client: { es: 'Kumis', en: 'Kumis' },
+    shortTitle: { es: 'Kumis', en: 'Kumis' },
+    tagline: { es: 'EQUILIBRIO\nEN LO SIMPLE', en: 'EQUILIBRIUM\nIN THE SIMPLE' },
+    sector: { es: 'Drinks & Foods', en: 'Drinks & Foods' },
+    categories: ['marca', 'empaque'],
+    cover: '/assets/kumis-hero.jpg',
+    coverAlt: {
+      es: 'Campaña de Kumis: equilibrio y armonía de sabores',
+      en: 'Kumis campaign: balance and harmony of flavours',
+    },
+    intro: [
+      {
+        es: 'Kumis es leche cultivada, una categoría donde toda la góndola se parece. La marca se construyó para leerse distinta desde lejos: azul, dibujada a mano y con una promesa simple de equilibrio.',
+        en: 'Kumis is cultured milk, a category where the whole shelf looks alike. The brand was built to read differently from a distance: blue, hand-drawn and with a simple promise of balance.',
+      },
+    ],
+    blocks: [
+      {
+        kind: 'full',
+        src: '/assets/kumis-billboard.jpg',
+        alt: {
+          es: 'Valla horizontal de Kumis con el sistema gráfico dibujado a mano',
+          en: 'Horizontal Kumis billboard showing the hand-drawn graphic system',
+        },
+      },
+      {
+        kind: 'text',
+        copy: [
+          {
+            es: 'Todo el sistema está dibujado a mano: la vaca, el molino, las hojas, los porcentajes. Es un lenguaje que puede crecer sabor a sabor sin volverse ruidoso, y que sostiene la marca desde la etiqueta hasta la valla.',
+            en: 'The whole system is hand-drawn: the cow, the windmill, the leaves, the percentages. It is a language that can grow flavour by flavour without getting noisy, and it holds the brand from the label to the billboard.',
+          },
+        ],
+      },
+      {
+        kind: 'duo',
+        items: [
+          {
+            src: '/assets/kumis-4pack.jpg',
+            alt: { es: 'Empaque del 4 Pack de Kumis', en: 'Kumis 4 Pack packaging' },
+          },
+          {
+            src: '/assets/kumis-range.jpg',
+            alt: {
+              es: 'Presentaciones de Kumis: familiar, personal y Kids',
+              en: 'Kumis range: family, personal and Kids formats',
+            },
+          },
+        ],
+      },
+      {
+        kind: 'full',
+        src: '/assets/kumis-flavors.jpg',
+        alt: {
+          es: 'Línea de sabores de Kumis: natural, fresa, chocolate y durazno',
+          en: 'Kumis flavour line: natural, strawberry, chocolate and peach',
+        },
+      },
+      {
+        kind: 'duo',
+        items: [
+          {
+            src: '/assets/kumis-peach.jpg',
+            alt: { es: 'Kumis sabor durazno', en: 'Peach-flavoured Kumis' },
+          },
+          {
+            src: '/assets/kumis-posters.jpg',
+            alt: {
+              es: 'Piezas de campaña de Kumis en mobiliario urbano',
+              en: 'Kumis campaign posters on street furniture',
+            },
+          },
+        ],
+      },
+      {
+        kind: 'text',
+        copy: [
+          {
+            es: 'En el punto de venta la marca se ordena por color: cada sabor tiene su tapa y su franja, y la familia se lee completa aunque el comprador solo alcance a ver la nevera de lejos.',
+            en: 'At the point of sale the brand is ordered by colour: every flavour has its cap and its band, so the family reads as one even when the shopper only catches the fridge from a distance.',
+          },
+        ],
+      },
+      {
+        kind: 'duo',
+        items: [
+          {
+            src: '/assets/kumis-ooh.jpg',
+            alt: {
+              es: 'Valla de Kumis: equilibrium in the simplest way',
+              en: 'Kumis billboard: equilibrium in the simplest way',
+            },
+          },
+          {
+            src: '/assets/kumis-retail.jpg',
+            alt: {
+              es: 'Exhibidor y nevera de marca Kumis en punto de venta',
+              en: 'Kumis branded display and fridge at the point of sale',
+            },
+          },
+        ],
       },
     ],
   },
@@ -290,47 +521,31 @@ export const projects = [
         en: 'More than a new label, it was a new attitude. After leading the rebranding of Club Premium Ecuador, we took on the challenge of supporting its latest innovation: Doble Malta, a beer born from the perfect balance between intensity and freshness.',
       },
     ],
-  },
-
-  /* ────────────────────────────── BSC Brewing ──────────────────────────── */
-  {
-    slug: 'bsc-brewing',
-    featured: true,
-    year: 2023,
-    client: { es: 'BSC Brewing Co.', en: 'BSC Brewing Co.' },
-    shortTitle: { es: 'BSC Brewing Co.', en: 'BSC Brewing Co.' },
-    tagline: { es: 'CERVEZA\nCON CARÁCTER', en: 'BEER WITH\nCHARACTER' },
-    sector: { es: 'Drinks & Foods', en: 'Drinks & Foods' },
-    categories: ['empaque', 'marca'],
-    cover: '/assets/slide-beer.jpg',
-    coverAlt: { es: 'Lata de cerveza Hazy IPA de BSC Brewing', en: 'BSC Brewing Hazy IPA can' },
-    intro: [
+    blocks: [
       {
-        es: 'Un sistema de empaque que convierte cada referencia en una pieza de colección, con una tipografía numérica que ordena el portafolio y lo hace crecer sin perder identidad.',
-        en: 'A packaging system that turns every reference into a collectible, with a numeric typography that orders the portfolio and lets it grow without losing identity.',
+        kind: 'full',
+        src: '/assets/club-detail.jpg',
+        alt: {
+          es: 'Detalle de la etiqueta y la tapa de Club Premium Clásica',
+          en: 'Close-up of the Club Premium Clásica label and cap',
+        },
+      },
+      {
+        kind: 'full',
+        src: '/assets/club-bottles.jpg',
+        alt: {
+          es: 'Botellas de Club Premium Clásica',
+          en: 'Club Premium Clásica bottles',
+        },
       },
     ],
   },
 
-  /* ──────────────────────────────────── Goo ───────────────────────────── */
-  {
-    slug: 'goo',
-    featured: true,
-    year: 2024,
-    client: { es: 'Goo', en: 'Goo' },
-    shortTitle: { es: 'Goo', en: 'Goo' },
-    tagline: { es: 'BUEN GUSTO,\nSIN RUIDO', en: 'GOOD TASTE,\nNO NOISE' },
-    sector: { es: 'Consumer Brands', en: 'Consumer Brands' },
-    categories: ['marca', 'empaque'],
-    cover: '/assets/slide-goo.jpg',
-    coverAlt: { es: 'Identidad de marca Goo aplicada en empaque', en: 'Goo brand identity applied to packaging' },
-    intro: [
-      {
-        es: 'Una marca construida desde el gesto: pocos elementos, mucha intención. El resultado es un lenguaje que se reconoce antes de leerse.',
-        en: 'A brand built from gesture: few elements, plenty of intent. The result is a language you recognise before you read it.',
-      },
-    ],
-  },
+  /*
+    BSC Brewing and Goo used to sit here. Their covers were screenshots of the
+    site's own carousel — yellow arrow and all — so they are out until there is
+    real artwork for them.
+  */
 
   /* ───────────────────────────── Home Burgers ─────────────────────────── */
   {
