@@ -1,6 +1,7 @@
 import ArrowButton from './ArrowButton'
-import WhatsappButton from './WhatsappButton'
 import Reveal from './Reveal'
+import AnimatedText from '../motion/AnimatedText'
+import Magnetic from '../motion/Magnetic'
 import { useLang } from '../i18n/useLang'
 
 /**
@@ -18,25 +19,21 @@ export default function CtaBand({ children = null }) {
             children ? 'lg:flex-row lg:items-center lg:justify-between lg:gap-16' : ''
           }`}
         >
-          <Reveal className="flex flex-wrap items-end gap-x-6 gap-y-4">
-            <h2 className="text-display whitespace-pre-line">{t('cta.title')}</h2>
-            <ArrowButton to="/contact" className="mb-2">
-              {t('cta.button')}
-            </ArrowButton>
-          </Reveal>
+          <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
+            <AnimatedText as="h2" text={t('cta.title')} className="text-display" />
+            <Reveal delay={260} className="mb-2">
+              <Magnetic strength={0.3}>
+                <ArrowButton to="/contact">{t('cta.button')}</ArrowButton>
+              </Magnetic>
+            </Reveal>
+          </div>
 
           {children ? (
-            <Reveal delay={120} className="w-full lg:max-w-[38rem]">
+            <Reveal delay={200} className="w-full lg:max-w-[38rem]">
               {children}
             </Reveal>
           ) : null}
         </div>
-
-        {!children ? (
-          <div className="mt-10 flex justify-end md:-mt-10">
-            <WhatsappButton />
-          </div>
-        ) : null}
       </div>
     </section>
   )

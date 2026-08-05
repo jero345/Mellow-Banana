@@ -1,13 +1,17 @@
 import { useMemo, useState } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
 import Reveal from '../components/Reveal'
 import Pill from '../components/Pill'
 import ProjectCard from '../components/ProjectCard'
 import CtaBand from '../components/CtaBand'
+import AnimatedText from '../motion/AnimatedText'
+import { EASE, DUR } from '../motion/tokens'
 import { useLang } from '../i18n/useLang'
 import { CATEGORIES, projects } from '../data/projects'
 
 export default function Work() {
   const { t } = useLang()
+  const reduced = useReducedMotion()
   const [filter, setFilter] = useState('all')
 
   const visible = useMemo(
@@ -18,13 +22,13 @@ export default function Work() {
   return (
     <>
       <section className="shell pt-32 md:pt-40">
-        <Reveal>
-          <h1 className="text-display text-yellow">{t('work.title')}</h1>
+        <AnimatedText as="h1" text={t('work.title')} className="text-display text-yellow" delay={0.1} />
+        <Reveal delay={200}>
           <p className="mt-6 max-w-[46ch] text-body text-white/80">{t('work.lead')}</p>
         </Reveal>
 
         <Reveal
-          delay={120}
+          delay={280}
           className="mt-12 flex flex-wrap items-center justify-between gap-6 border-b border-hairline pb-6"
         >
           <div className="flex flex-wrap gap-2">
@@ -49,13 +53,24 @@ export default function Work() {
 
       <section className="shell py-14 md:py-20">
         {visible.length ? (
-          <div className="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          // Keyed by filter so switching remounts the grid and the cards replay
+          // their reveal instead of snapping into place.
+          <motion.div
+            key={filter}
+            initial={reduced ? false : { opacity: 0 }}
+            animate={reduced ? undefined : { opacity: 1 }}
+            transition={{ duration: DUR.fast, ease: EASE }}
+            className="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
+          >
             {visible.map((project, i) => (
-              <Reveal key={project.slug} delay={(i % 3) * 110}>
-                <ProjectCard project={project} ratio="aspect-4/3" />
-              </Reveal>
+              <ProjectCard
+                key={project.slug}
+                project={project}
+                ratio="aspect-4/3"
+                delay={(i % 3) * 0.1}
+              />
             ))}
-          </div>
+          </motion.div>
         ) : (
           <p className="text-body text-white/60">{t('work.empty')}</p>
         )}

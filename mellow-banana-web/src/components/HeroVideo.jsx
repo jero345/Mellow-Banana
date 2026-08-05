@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { motion, useReducedMotion, useTransform } from 'motion/react'
 
 const POSTER = '/media/reel-poster.jpg'
 
@@ -9,11 +10,21 @@ const POSTER = '/media/reel-poster.jpg'
  * Falls back to the poster alone when the visitor asks for reduced motion or
  * has Data Saver on, and picks the 720p cut on narrow viewports so phones do
  * not pull the 1080p file.
+ *
+ * `progress` is the hero's scroll progress: the footage sinks and the scrim
+ * closes over it on the way out, so the hand-off into the black page below
+ * feels like one continuous move.
  */
-export default function HeroVideo() {
+export default function HeroVideo({ progress }) {
   const videoRef = useRef(null)
+  const reduced = useReducedMotion()
   const [src, setSrc] = useState(null)
   const [ready, setReady] = useState(false)
+
+  const videoScale = useTransform(progress ?? null, [0, 1], [1, 1.14])
+  const videoY = useTransform(progress ?? null, [0, 1], ['0%', '6%'])
+  const scrimOpacity = useTransform(progress ?? null, [0, 1], [1, 2.1])
+  const drift = reduced || !progress ? {} : { scale: videoScale, y: videoY }
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -41,39 +52,53 @@ export default function HeroVideo() {
 
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-      {/* Poster underneath, so there is never a black flash while loading. */}
-      <img
-        src={POSTER}
-        alt=""
-        className="absolute inset-0 size-full object-cover"
-        fetchPriority="high"
-      />
-
-      {src ? (
-        <video
-          ref={videoRef}
-          src={src}
-          poster={POSTER}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          tabIndex={-1}
-          className={`absolute inset-0 size-full object-cover transition-opacity duration-1000 ease-brand ${
-            ready ? 'opacity-100' : 'opacity-0'
-          }`}
+      {/*
+        Held back and largely desaturated so the palette stays black + yellow:
+        the reel reads as texture behind the type, not as a second colour scheme.
+      */}
+      <motion.div
+        style={drift}
+        className="absolute inset-0 brightness-[0.82] contrast-[1.06] saturate-[0.72]"
+      >
+        {/* Poster underneath, so there is never a black flash while loading. */}
+        <img
+          src={POSTER}
+          alt=""
+          className="absolute inset-0 size-full object-cover"
+          fetchPriority="high"
         />
-      ) : null}
+
+        {src ? (
+          <video
+            ref={videoRef}
+            src={src}
+            poster={POSTER}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            tabIndex={-1}
+            className={`absolute inset-0 size-full object-cover transition-opacity duration-1000 ease-brand ${
+              ready ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        ) : null}
+      </motion.div>
 
       {/*
-        Scrim. The headline is yellow on the artboard's pure black, so the
-        footage is pushed well down: a flat wash, a left-weighted gradient
-        behind the type, and a fade into the section that follows.
+        Scrim: a light flat wash, a gradient weighted to the left so the yellow
+        headline always has a dark ground, and a fade into the black section
+        that follows. Tuned against the brightest frame of the reel.
       */}
-      <div className="absolute inset-0 bg-ink/72" />
-      <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(0,0,0,0.92)_0%,rgba(0,0,0,0.62)_42%,rgba(0,0,0,0.34)_70%,rgba(0,0,0,0.55)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(to_bottom,transparent_0%,#000_92%)]" />
+      <motion.div
+        style={reduced || !progress ? {} : { opacity: scrimOpacity }}
+        className="absolute inset-0"
+      >
+        <div className="absolute inset-0 bg-ink/40" />
+        <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(0,0,0,0.86)_0%,rgba(0,0,0,0.5)_34%,rgba(0,0,0,0.12)_62%,rgba(0,0,0,0.4)_100%)]" />
+      </motion.div>
+      <div className="absolute inset-x-0 bottom-0 h-2/5 bg-[linear-gradient(to_bottom,transparent_0%,#000_94%)]" />
     </div>
   )
 }

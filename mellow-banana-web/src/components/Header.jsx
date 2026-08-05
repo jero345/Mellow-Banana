@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'motion/react'
 import { Wordmark } from './Brand'
+import { EASE } from '../motion/tokens'
 import { useLang } from '../i18n/useLang'
 import { nav, contact, socials } from '../data/site'
 
@@ -111,49 +113,67 @@ export default function Header() {
       </header>
 
       {/* full-screen mobile menu — the "Menú" screen from the deck */}
-      <div
-        id="mobile-menu"
-        hidden={!open}
-        className={`fixed inset-0 z-40 bg-ink transition-opacity duration-500 md:hidden ${
-          open ? 'opacity-100' : 'pointer-events-none opacity-0'
-        }`}
-      >
-        <div className="shell flex h-full flex-col justify-between pt-28 pb-10">
-          <nav className="flex flex-col gap-2" aria-label="Mobile">
-            {nav.map((item, i) => (
-              <NavLink
-                key={item.key}
-                to={item.to}
-                style={{ '--word-delay': `${120 + i * 70}ms` }}
-                className={({ isActive }) =>
-                  `text-title ${open ? 'stagger-word' : ''} ${isActive ? 'text-yellow' : 'text-white'}`
-                }
-              >
-                {t(`nav.${item.key}`)}
-              </NavLink>
-            ))}
-          </nav>
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            id="mobile-menu"
+            className="fixed inset-0 z-40 bg-ink md:hidden"
+            initial={{ clipPath: 'inset(0% 0% 100% 0%)' }}
+            animate={{ clipPath: 'inset(0% 0% 0% 0%)' }}
+            exit={{ clipPath: 'inset(0% 0% 100% 0%)' }}
+            transition={{ duration: 0.6, ease: EASE }}
+          >
+            <div className="shell flex h-full flex-col justify-between pt-28 pb-10">
+              <nav className="flex flex-col gap-2" aria-label="Mobile">
+                {nav.map((item, i) => (
+                  // Each label rises out of its own clipping box.
+                  <span key={item.key} className="overflow-hidden py-1">
+                    <motion.span
+                      className="block"
+                      initial={{ y: '110%' }}
+                      animate={{ y: 0 }}
+                      transition={{ duration: 0.7, ease: EASE, delay: 0.16 + i * 0.07 }}
+                    >
+                      <NavLink
+                        to={item.to}
+                        className={({ isActive }) =>
+                          `text-title ${isActive ? 'text-yellow' : 'text-white'}`
+                        }
+                      >
+                        {t(`nav.${item.key}`)}
+                      </NavLink>
+                    </motion.span>
+                  </span>
+                ))}
+              </nav>
 
-          <div className="flex flex-col gap-6 text-meta text-white/70">
-            <div className="flex flex-wrap gap-x-6 gap-y-2">
-              {socials.map((s) => (
-                <a key={s.label} href={s.href} target="_blank" rel="noreferrer noopener">
-                  {s.label}
-                </a>
-              ))}
+              <motion.div
+                className="flex flex-col gap-6 text-meta text-white/70"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: EASE, delay: 0.4 }}
+              >
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                  {socials.map((s) => (
+                    <a key={s.label} href={s.href} target="_blank" rel="noreferrer noopener">
+                      {s.label}
+                    </a>
+                  ))}
+                </div>
+                <div className="space-y-1">
+                  <a href={`mailto:${contact.email}`} className="block text-white">
+                    {contact.email}
+                  </a>
+                  <a href={`tel:${contact.phoneHref}`} className="block">
+                    {contact.phone}
+                  </a>
+                  <p>{contact.address}</p>
+                </div>
+              </motion.div>
             </div>
-            <div className="space-y-1">
-              <a href={`mailto:${contact.email}`} className="block text-white">
-                {contact.email}
-              </a>
-              <a href={`tel:${contact.phoneHref}`} className="block">
-                {contact.phone}
-              </a>
-              <p>{contact.address}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </>
   )
 }

@@ -4,6 +4,8 @@ import SectionNumber from '../components/SectionNumber'
 import ProjectCard from '../components/ProjectCard'
 import ClientWall from '../components/ClientWall'
 import CtaBand from '../components/CtaBand'
+import AnimatedText from '../motion/AnimatedText'
+import RevealImage from '../motion/RevealImage'
 import { useLang } from '../i18n/useLang'
 import { capabilities, sectors, pillars } from '../data/site'
 import { getProject } from '../data/projects'
@@ -21,27 +23,42 @@ function Block({ number, children, last = false }) {
   )
 }
 
-/** One service pillar: title, description, and three real brand examples. */
+/**
+ * One service pillar. On wide screens the title and description stay pinned
+ * while the three brand examples scroll past them.
+ */
 function Pillar({ pillar, index }) {
   const { t } = useLang()
   const works = pillar.works.map(getProject).filter(Boolean)
 
   return (
-    <Reveal delay={index * 90} className="mt-16 first:mt-12">
-      <h3 className="text-lead text-yellow">{t(`pillar.${pillar.key}.title`)}</h3>
-      <p className="mt-3 max-w-[52ch] text-meta text-white/75">{t(`pillar.${pillar.key}.body`)}</p>
+    <div className="mt-20 grid gap-8 first:mt-12 lg:grid-cols-[minmax(0,18rem)_1fr] lg:gap-12">
+      <div className="lg:sticky lg:top-32 lg:self-start">
+        <AnimatedText
+          as="h3"
+          text={t(`pillar.${pillar.key}.title`)}
+          className="text-lead text-yellow"
+          delay={index * 0.05}
+        />
+        <Reveal delay={160}>
+          <p className="mt-3 max-w-[46ch] text-meta text-white/75">
+            {t(`pillar.${pillar.key}.body`)}
+          </p>
+        </Reveal>
+      </div>
 
-      <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {works.map((project) => (
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {works.map((project, i) => (
           <ProjectCard
             key={`${pillar.key}-${project.slug}`}
             project={project}
             ratio="aspect-4/3"
             showMeta={false}
+            delay={i * 0.1}
           />
         ))}
       </div>
-    </Reveal>
+    </div>
   )
 }
 
@@ -53,12 +70,19 @@ export default function About() {
       {/* 01 — who we are */}
       <div className="pt-32 md:pt-40">
         <Block number="01">
-          <Reveal delay={80}>
-            <p className="mt-8 text-title text-yellow">{t('about.01.eyebrow')}</p>
-            <h1 className="mt-6 max-w-[34ch] text-title text-balance-tight">
-              {t('about.01.body')}
-            </h1>
-          </Reveal>
+          <AnimatedText
+            as="p"
+            text={t('about.01.eyebrow')}
+            className="mt-8 text-title text-yellow"
+            delay={0.1}
+          />
+          <AnimatedText
+            as="h1"
+            text={t('about.01.body')}
+            className="mt-6 max-w-[34ch] text-title"
+            delay={0.25}
+            stagger={0.035}
+          />
         </Block>
       </div>
 
@@ -68,7 +92,7 @@ export default function About() {
           <Reveal>
             <p className="max-w-[52ch] text-body text-white/85">{t('about.02.p1')}</p>
           </Reveal>
-          <Reveal delay={120}>
+          <Reveal delay={160}>
             <p className="max-w-[52ch] text-body text-white/85">{t('about.02.p2')}</p>
           </Reveal>
         </div>
@@ -76,17 +100,20 @@ export default function About() {
 
       {/* 03 — what we do */}
       <Block number="03">
-        <Reveal delay={80}>
-          <h2 className="mt-8 text-title text-yellow">{t('about.03.title')}</h2>
-        </Reveal>
+        <AnimatedText
+          as="h2"
+          text={t('about.03.title')}
+          className="mt-8 text-title text-yellow"
+          delay={0.1}
+        />
 
-        <Reveal delay={140} className="mt-10 flex max-w-208 flex-wrap gap-1.5">
-          {capabilities.map((item) => (
-            <Pill key={item} variant="solid">
-              {item}
-            </Pill>
+        <div className="mt-10 flex max-w-208 flex-wrap gap-1.5">
+          {capabilities.map((item, i) => (
+            <Reveal key={item} delay={i * 45} y={12}>
+              <Pill variant="solid">{item}</Pill>
+            </Reveal>
           ))}
-        </Reveal>
+        </div>
 
         {pillars.map((pillar, i) => (
           <Pillar key={pillar.key} pillar={pillar} index={i} />
@@ -95,42 +122,48 @@ export default function About() {
 
       {/* 04 — clients */}
       <Block number="04">
-        <Reveal delay={80}>
-          <h2 className="mt-8 text-title text-yellow">{t('about.04.title')}</h2>
-        </Reveal>
+        <AnimatedText
+          as="h2"
+          text={t('about.04.title')}
+          className="mt-8 text-title text-yellow"
+          delay={0.1}
+        />
 
-        <Reveal delay={140} className="mt-10 flex max-w-208 flex-wrap gap-1.5">
-          {sectors.map((item) => (
-            <Pill key={item} variant="solid">
-              {item}
-            </Pill>
+        <div className="mt-10 flex max-w-208 flex-wrap gap-1.5">
+          {sectors.map((item, i) => (
+            <Reveal key={item} delay={i * 40} y={12}>
+              <Pill variant="solid">{item}</Pill>
+            </Reveal>
           ))}
-        </Reveal>
+        </div>
 
-        <Reveal delay={180}>
+        <Reveal delay={220}>
           <p className="mt-10 max-w-[52ch] text-body text-white/85">{t('about.04.body')}</p>
         </Reveal>
 
-        <Reveal delay={220} className="mt-14">
+        <Reveal delay={280} className="mt-14">
           <ClientWall invert />
         </Reveal>
       </Block>
 
       {/* 05 — the team */}
       <Block number="05" last>
-        <Reveal delay={80}>
-          <h2 className="mt-8 text-title text-yellow">{t('about.05.title')}</h2>
+        <AnimatedText
+          as="h2"
+          text={t('about.05.title')}
+          className="mt-8 text-title text-yellow"
+          delay={0.1}
+        />
+        <Reveal delay={200}>
           <p className="mt-6 max-w-[52ch] text-body text-white/85">{t('about.05.body')}</p>
         </Reveal>
 
-        <Reveal delay={140} className="mt-12 overflow-hidden rounded-xl">
-          <img
-            src="/assets/team-office.jpg"
-            alt={t('about.05.alt')}
-            loading="lazy"
-            className="aspect-21/9 w-full object-cover"
-          />
-        </Reveal>
+        <RevealImage
+          src="/assets/team-office.jpg"
+          alt={t('about.05.alt')}
+          className="mt-12 rounded-xl"
+          imgClassName="aspect-21/9"
+        />
       </Block>
 
       <CtaBand />

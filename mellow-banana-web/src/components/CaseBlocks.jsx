@@ -1,22 +1,25 @@
 import Reveal from './Reveal'
+import RevealImage from '../motion/RevealImage'
 import { useLang } from '../i18n/useLang'
 
 /**
  * Renders one entry of a project's `blocks` array. Keeping the layouts here
  * means a new case study is data, not markup.
+ *
+ * Each figure unmasks and drifts on its own timing, so a row of images arrives
+ * as a sequence rather than as one block.
  */
 
-function Figure({ item, className = '', contain = false }) {
+function Figure({ item, className = '', contain = false, delay = 0 }) {
   const { f } = useLang()
   return (
-    <div className={`overflow-hidden rounded-xl bg-white/5 ${className}`}>
-      <img
-        src={item.src}
-        alt={f(item.alt)}
-        loading="lazy"
-        className={`w-full ${contain ? 'object-contain' : 'object-cover'}`}
-      />
-    </div>
+    <RevealImage
+      src={item.src}
+      alt={f(item.alt)}
+      contain={contain}
+      delay={delay}
+      className={`rounded-xl bg-white/5 ${className}`}
+    />
   )
 }
 
@@ -26,48 +29,48 @@ export default function CaseBlock({ block }) {
   switch (block.kind) {
     case 'text':
       return (
-        <Reveal className="shell py-12 md:py-16">
+        <section className="shell py-12 md:py-16">
           <div className="max-w-[58ch] space-y-6">
             {block.copy.map((para, i) => (
-              <p key={i} className="text-body text-white/85">
-                {f(para)}
-              </p>
+              <Reveal key={i} delay={i * 130}>
+                <p className="text-body text-white/85">{f(para)}</p>
+              </Reveal>
             ))}
           </div>
-        </Reveal>
+        </section>
       )
 
     case 'full':
       return (
-        <Reveal className="shell py-3 md:py-4">
+        <div className="shell py-3 md:py-4">
           <Figure item={block} contain={block.contain} />
-        </Reveal>
+        </div>
       )
 
     case 'duo':
       return (
-        <Reveal className="shell grid gap-3 py-3 md:grid-cols-2 md:gap-4 md:py-4">
-          {block.items.map((item) => (
-            <Figure key={item.src} item={item} />
+        <div className="shell grid gap-3 py-3 md:grid-cols-2 md:gap-4 md:py-4">
+          {block.items.map((item, i) => (
+            <Figure key={item.src} item={item} delay={i * 0.12} />
           ))}
-        </Reveal>
+        </div>
       )
 
     case 'split':
       return (
-        <Reveal className="shell grid gap-3 py-3 md:grid-cols-3 md:gap-4 md:py-4">
+        <div className="shell grid gap-3 py-3 md:grid-cols-3 md:gap-4 md:py-4">
           <Figure item={block.items[0]} className="md:col-span-2" />
-          <Figure item={block.items[1]} />
-        </Reveal>
+          <Figure item={block.items[1]} delay={0.14} />
+        </div>
       )
 
     case 'trio':
       return (
-        <Reveal className="shell grid gap-3 py-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4 md:py-4">
-          {block.items.map((item) => (
-            <Figure key={item.src} item={item} />
+        <div className="shell grid gap-3 py-3 sm:grid-cols-2 md:grid-cols-3 md:gap-4 md:py-4">
+          {block.items.map((item, i) => (
+            <Figure key={item.src} item={item} delay={i * 0.1} />
           ))}
-        </Reveal>
+        </div>
       )
 
     default:

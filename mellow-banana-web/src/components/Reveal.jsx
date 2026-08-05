@@ -1,51 +1,37 @@
-import { useEffect, useRef, useState } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
+import { EASE, DUR, inView } from '../motion/tokens'
 
 /**
- * Reveals children once they scroll into view. Uses a single observer per
- * element and disconnects after firing, so nothing keeps running down the page.
+ * Quiet fade-and-rise as the element scrolls in — the default for body copy,
+ * chip rows and small blocks. Display type uses <AnimatedText> instead.
  */
 export default function Reveal({
-  as: Tag = 'div',
+  as = 'div',
   delay = 0,
+  y = 26,
   className = '',
   children,
   ...rest
 }) {
-  const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
+  const reduced = useReducedMotion()
+  const Tag = motion[as] ?? motion.div
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    if (
-      typeof IntersectionObserver === 'undefined' ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) {
-      setVisible(true)
-      return
-    }
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          io.disconnect()
-        }
-      },
-      { rootMargin: '0px 0px -12% 0px', threshold: 0.08 },
+  if (reduced) {
+    const Plain = as
+    return (
+      <Plain className={className} {...rest}>
+        {children}
+      </Plain>
     )
-
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
+  }
 
   return (
     <Tag
-      ref={ref}
-      data-visible={visible}
-      style={{ '--reveal-delay': `${delay}ms` }}
-      className={`reveal ${className}`}
+      className={className}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={inView}
+      transition={{ duration: DUR.base, ease: EASE, delay: delay / 1000 }}
       {...rest}
     >
       {children}

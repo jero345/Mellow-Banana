@@ -170,64 +170,7 @@
   text-wrap: balance;
 }
 
-/* Scroll-reveal primitive (driven by <Reveal />). */
 @layer components {
-  .reveal {
-    opacity: 0;
-    transform: translate3d(0, 26px, 0);
-    transition:
-      opacity 0.9s var(--ease-brand),
-      transform 0.9s var(--ease-brand);
-    transition-delay: var(--reveal-delay, 0ms);
-    will-change: opacity, transform;
-  }
-
-  .reveal[data-visible='true'] {
-    opacity: 1;
-    transform: none;
-  }
-
-  /* Word-by-word display headline used on the hero. */
-  .stagger-word {
-    display: inline-block;
-    opacity: 0;
-    transform: translate3d(0, 0.5em, 0);
-    animation: word-in 1s var(--ease-brand) forwards;
-    animation-delay: var(--word-delay, 0ms);
-  }
-
-  @keyframes word-in {
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  .hairline {
-    height: 1px;
-    background: var(--color-hairline);
-  }
-
-  /* Continuous logo marquee. */
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation: marquee var(--marquee-duration, 42s) linear infinite;
-  }
-
-  .marquee:hover .marquee-track {
-    animation-play-state: paused;
-  }
-
-  @keyframes marquee {
-    from {
-      transform: translate3d(0, 0, 0);
-    }
-    to {
-      transform: translate3d(-50%, 0, 0);
-    }
-  }
-
   /* Underline that draws in on hover — used across nav and inline links. */
   .link-underline {
     position: relative;
@@ -250,10 +193,143 @@
   .link-underline[aria-current='page']::after {
     transform: scaleX(1);
   }
-}
 
-/* Hide the native cursor where the custom "Ver" cursor takes over. */
-.cursor-none,
-.cursor-none * {
-  cursor: none;
+  /* ── Floating WhatsApp button (<WhatsappButton />) ───────────────── */
+
+  .wa-float {
+    position: fixed;
+    z-index: 60;
+    right: clamp(1rem, 2.2vw, 2rem);
+    bottom: calc(clamp(1rem, 2.2vw, 2rem) + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    /* Lets the page breathe for a beat before the badge drops in. */
+    animation: wa-in 0.9s var(--ease-brand) 0.8s both;
+  }
+
+  .wa-float__disc {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 999px;
+    background: radial-gradient(120% 120% at 30% 20%, #4ce07d 0%, #25d366 45%, #12a04c 100%);
+    box-shadow:
+      0 12px 30px rgb(18 160 76 / 0.34),
+      0 2px 8px rgb(0 0 0 / 0.22),
+      inset 0 1px 0 rgb(255 255 255 / 0.3);
+    transition:
+      transform 0.5s var(--ease-brand),
+      box-shadow 0.5s var(--ease-brand);
+  }
+
+  /* Two staggered rings breathing out of the disc. */
+  .wa-float__disc::before,
+  .wa-float__disc::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    border: 2px solid #25d366;
+    opacity: 0;
+    animation: wa-onda 2.8s var(--ease-brand) infinite;
+    pointer-events: none;
+  }
+
+  .wa-float__disc::after {
+    animation-delay: 1.4s;
+  }
+
+  .wa-float__icon {
+    position: relative;
+    z-index: 2;
+    width: 1.85rem;
+    height: 1.85rem;
+    color: #fff;
+    transition: transform 0.5s var(--ease-brand);
+  }
+
+  .wa-float:hover .wa-float__disc,
+  .wa-float:focus-visible .wa-float__disc {
+    transform: scale(1.08);
+    box-shadow:
+      0 16px 38px rgb(18 160 76 / 0.42),
+      0 2px 8px rgb(0 0 0 / 0.24),
+      inset 0 1px 0 rgb(255 255 255 / 0.3);
+  }
+
+  .wa-float:active .wa-float__disc {
+    transform: scale(0.96);
+  }
+
+  .wa-float:hover .wa-float__icon {
+    transform: rotate(-6deg);
+  }
+
+  /* Label slides out of the disc on hover. */
+  .wa-float__label {
+    white-space: nowrap;
+    background: var(--color-ink);
+    color: #fff;
+    font-size: 0.8125rem;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    padding: 0.6rem 0.85rem;
+    border-radius: 999px;
+    box-shadow: 0 10px 26px rgb(0 0 0 / 0.28);
+    opacity: 0;
+    transform: translate3d(10px, 0, 0) scale(0.96);
+    transform-origin: right center;
+    transition:
+      opacity 0.5s var(--ease-brand),
+      transform 0.5s var(--ease-brand);
+    pointer-events: none;
+  }
+
+  .wa-float:hover .wa-float__label,
+  .wa-float:focus-visible .wa-float__label {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 640px) {
+    .wa-float__label {
+      display: none;
+    }
+    .wa-float__disc {
+      width: 3.125rem;
+      height: 3.125rem;
+    }
+    .wa-float__icon {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+
+  @keyframes wa-onda {
+    0% {
+      transform: scale(1);
+      opacity: 0;
+    }
+    12% {
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes wa-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0) scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
