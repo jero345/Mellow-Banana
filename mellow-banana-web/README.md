@@ -69,11 +69,30 @@ así que cada componente lo respeta sin chequearlo por su cuenta. Con la
 preferencia activa no hay intro, ni persiana, ni cursor, ni barra de progreso, ni
 parallax: la página queda estática y completa.
 
-> Nota para quien siga esto: **no envuelvas una sección en `AnimatePresence` con
-> `mode="wait"` si adentro hay `whileInView`.** Suprime el trigger en todos sus
-> descendientes y las imágenes se quedan enmascaradas — o sea, invisibles. Fue un
-> bug real en `/work`; el reemplazo es un `motion.div` con `key`, que además
-> hace que las tarjetas repitan su reveal al cambiar de filtro.
+### Dos trampas que ya costaron caro
+
+**1. `whileInView` no hace nada en motion 13.** El build ESM que consume Vite no
+incluye ese gesto: el prop se acepta y se ignora en silencio, así que el elemento
+se queda en su `initial` para siempre — y en un reveal enmascarado eso significa
+**invisible**. Los gráficos solo aparecían al recargar la página.
+
+Por eso todo el scroll-reveal pasa por el hook `useInView`, detrás de
+`src/motion/useReveal.js`. **No vuelvas a `whileInView`** sin comprobar antes que
+la feature exista en el bundle.
+
+Un detalle más: `useInView` necesita el ref en un elemento **normal**, no en un
+componente `motion`. En `RevealImage` la caja medida es un `<div>` plano y la
+máscara vive en un hijo `motion`.
+
+**2. `AnimatePresence initial={false}` apaga las animaciones de entrada de todo
+su subárbol en el primer render.** Eso hacía que una carga directa pintara todo
+en su estado final y se viera perfecta, ocultando el bug de arriba: solo se
+notaba al navegar con clics. Hoy dentro de `AnimatePresence` va **solo la
+persiana**; las rutas son hermanas, no descendientes.
+
+> Moraleja para verificar: probar cada ruta con `goto` **no alcanza**. Hay que
+> llegar a las páginas **haciendo clic**, que es lo que hace la gente. El script
+> `navcheck` de esta sesión existe justamente para eso.
 
 ## Gestos que vienen dibujados en el PDF
 
@@ -182,8 +201,13 @@ Con navegador headless, en 390 / 834 / 1512 px y en las cinco rutas:
   y más oscuro del reel: 9.1:1 y 17.3:1 (mínimo requerido 3:1).
 - **Motion**: en las 5 rutas × 2 anchos se recorre la página entera y se verifica
   que cada nodo animado llegue a su estado final — 0 palabras atascadas fuera de
-  su caja, 0 imágenes sin desenmascarar, 0 titulares sin altura. Es la
-  comprobación que importa: un trigger que no dispara deja el texto invisible.
+  su caja, 0 imágenes sin desenmascarar, 0 titulares sin altura (324 palabras,
+  102 marcos, 76 titulares). Es la comprobación que importa: un trigger que no
+  dispara deja el contenido invisible.
+- **Navegación con clics**: además de cargar cada ruta directo, se llega a Work,
+  About, Contact y a un proyecto **haciendo clic**, y se vuelve a verificar que
+  nada quede enmascarado. Este es el chequeo que atrapó el bug de
+  `whileInView`; la carga directa sola daba falso verde.
 - Intro corre una vez, libera el scroll y no se repite en la sesión; la persiana
   cubre a mitad de navegación y el scroll queda en 0 al llegar; el anillo del
   cursor pasa de 18 px a 44 px sobre un enlace; el filtro de Work rehace la
