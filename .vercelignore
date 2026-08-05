@@ -1,0 +1,6 @@
+# Design sources — needed to author the site, never needed to serve it.
+# The finished assets already live in mellow-banana-web/public.
+REEL25.mp4
+*.pdf
+Fonts-20260805T145351Z-1-001/
+Links-20260805T145428Z-1-001/
