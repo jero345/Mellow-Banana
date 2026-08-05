@@ -194,6 +194,122 @@
     transform: scaleX(1);
   }
 
+  /* ── Client wall (<ClientWall />) ──────────────────────────────────
+     Rows of logos running in alternating directions. Each row's track holds
+     the same cells twice and travels exactly -50%, so the loop is seamless —
+     which only holds because the spacing lives on the cells' padding rather
+     than a flex gap, keeping the two halves identical.                      */
+
+  .cwall__row {
+    overflow: hidden;
+    /* Logos dissolve at the edges instead of being cut off mid-mark. */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 7%,
+      #000 93%,
+      transparent
+    );
+    mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  }
+
+  .cwall__track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    animation: cwall-run var(--cwall-dur, 46s) linear infinite;
+    animation-direction: var(--cwall-dir, normal);
+  }
+
+  /* Reading a logo is easier than chasing it. */
+  .cwall__row:hover .cwall__track,
+  .cwall__row:focus-within .cwall__track {
+    animation-play-state: paused;
+  }
+
+  @keyframes cwall-run {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .cwall__cell {
+    position: relative;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    padding-inline: clamp(1.1rem, 2.2vw, 2.4rem);
+    padding-block: 1.5rem;
+  }
+
+  .cwall__logo {
+    width: clamp(6rem, 9vw, 9.25rem);
+    height: auto;
+    /* Present enough to read at a glance, quiet enough to stay a backdrop. */
+    opacity: 0.62;
+    transition:
+      opacity 0.5s var(--ease-brand),
+      transform 0.5s var(--ease-brand);
+  }
+
+  .cwall__cell:hover .cwall__logo {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.06);
+  }
+
+  /* Dark sections: flip the black marks to white. */
+  /* White-on-black needs more presence than black-on-paper: the marks are thin
+     and the surrounding contrast is higher. */
+  .cwall--invert .cwall__logo {
+    filter: invert(1);
+    opacity: 0.85;
+  }
+
+  .cwall--invert .cwall__cell:hover .cwall__logo {
+    opacity: 1;
+  }
+
+  /* The client's name, revealed under the mark on hover. */
+  .cwall__name {
+    position: absolute;
+    bottom: 0.35rem;
+    left: 50%;
+    max-width: 12rem;
+    transform: translate3d(-50%, 6px, 0);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.45s var(--ease-brand),
+      transform 0.45s var(--ease-brand);
+  }
+
+  .cwall__cell:hover .cwall__name {
+    opacity: 0.75;
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  /* Static fallback when the visitor asked for less motion. */
+  .cwall--still {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    align-items: center;
+    gap: 0.5rem 1rem;
+  }
+
+  .cwall--still .cwall__logo {
+    opacity: 0.68;
+  }
+
   /* ── Floating WhatsApp button (<WhatsappButton />) ───────────────── */
 
   .wa-float {
