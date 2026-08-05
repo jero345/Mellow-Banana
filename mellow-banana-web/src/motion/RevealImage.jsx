@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
-import { EASE, DUR, inView, SPRING } from './tokens'
+import { EASE, DUR, SPRING } from './tokens'
+import { useReveal } from './useReveal'
 
 /** Overscale the picture sits at once settled — this is the headroom the drift moves inside. */
 const REST_SCALE = 1.12
@@ -12,10 +13,14 @@ const DRIFT = 4
  * while the image inside settles out of an overscale, then drifts against the
  * scroll for depth.
  *
+ * The observed box is a plain <div>, not the animating motion component —
+ * `useInView` and `useScroll` need a ref on an ordinary element to measure
+ * reliably. The mask lives on a motion child inside it.
+ *
  * The image stays in normal flow so it still defines the frame's height; the
- * drift happens on a wrapper and rides inside the overscale headroom, so no
- * edge is ever exposed. `contain` images are not scaled or drifted — cropping
- * them would defeat the point.
+ * drift rides inside the overscale headroom, so no edge is ever exposed.
+ * `contain` images are not scaled or drifted — cropping them would defeat the
+ * point.
  */
 export default function RevealImage({
   src,
@@ -30,20 +35,22 @@ export default function RevealImage({
 }) {
   const ref = useRef(null)
   const reduced = useReducedMotion()
+  const visible = useReveal(ref)
   const moves = drift && !contain && !reduced
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const rawY = useTransform(scrollYProgress, [0, 1], [`${DRIFT}%`, `${-DRIFT}%`])
   const y = useSpring(rawY, SPRING.parallax)
 
+  const restScale = contain ? 1 : REST_SCALE
+
   const img = (
     <motion.img
       src={src}
       alt={alt}
       loading={eager ? 'eager' : 'lazy'}
-      initial={reduced ? false : { scale: contain ? 1 : REST_SCALE + 0.06 }}
-      whileInView={reduced ? undefined : { scale: contain ? 1 : REST_SCALE }}
-      viewport={inView}
+      initial={reduced ? false : { scale: restScale + 0.06 }}
+      animate={reduced ? undefined : { scale: visible ? restScale : restScale + 0.06 }}
       transition={{ duration: 1.5, ease: EASE, delay }}
       className={`w-full ${contain ? 'object-contain' : 'object-cover'} ${imgClassName}`}
     />
@@ -58,16 +65,14 @@ export default function RevealImage({
   }
 
   return (
-    <motion.div
-      ref={ref}
-      className={`overflow-hidden ${className}`}
-      initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
-      whileInView={{ clipPath: 'inset(0% 0% 0% 0%)' }}
-      viewport={inView}
-      transition={{ duration: DUR.slow, ease: EASE, delay }}
-      {...rest}
-    >
-      {moves ? <motion.div style={{ y }}>{img}</motion.div> : img}
-    </motion.div>
+    <div ref={ref} className={`overflow-hidden ${className}`} {...rest}>
+      <motion.div
+        initial={{ clipPath: 'inset(100% 0% 0% 0%)' }}
+        animate={{ clipPath: visible ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)' }}
+        transition={{ duration: DUR.slow, ease: EASE, delay }}
+      >
+        {moves ? <motion.div style={{ y }}>{img}</motion.div> : img}
+      </motion.div>
+    </div>
   )
 }

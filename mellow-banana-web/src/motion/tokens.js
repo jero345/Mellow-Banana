@@ -51,13 +51,6 @@ export const group = {
   visible: { transition: { staggerChildren: 0.07 } },
 }
 
-/** When an element should animate as it scrolls in. */
-export const inView = {
-  once: true,
-  amount: 0.18,
-  margin: '0px 0px -8% 0px',
-}
-
 /** Springs used by the pointer-driven pieces. */
 export const SPRING = {
   magnet: { stiffness: 220, damping: 22, mass: 0.6 },

@@ -1,5 +1,7 @@
+import { useRef } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
-import { EASE, DUR, inView } from '../motion/tokens'
+import { EASE, DUR } from '../motion/tokens'
+import { useReveal } from '../motion/useReveal'
 
 /**
  * Quiet fade-and-rise as the element scrolls in — the default for body copy,
@@ -14,6 +16,8 @@ export default function Reveal({
   ...rest
 }) {
   const reduced = useReducedMotion()
+  const ref = useRef(null)
+  const visible = useReveal(ref)
   const Tag = motion[as] ?? motion.div
 
   if (reduced) {
@@ -27,10 +31,10 @@ export default function Reveal({
 
   return (
     <Tag
+      ref={ref}
       className={className}
       initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={inView}
+      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y }}
       transition={{ duration: DUR.base, ease: EASE, delay: delay / 1000 }}
       {...rest}
     >

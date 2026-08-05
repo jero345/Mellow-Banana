@@ -6,24 +6,15 @@ import { Monogram } from '../components/Brand'
 
 /**
  * Route change as a branded shutter: a yellow panel drops down over the
- * outgoing page, then lifts to reveal the incoming one. The panel always
- * enters and leaves through the top edge, so the two halves read as one move.
+ * outgoing page, then lifts to reveal the incoming one, always travelling
+ * through the top edge so the two halves read as one move.
  *
- * `mode="wait"` keeps the outgoing page on screen until the panel has finished
- * covering, and the incoming page mounts behind it — which is also the moment
- * the scroll resets, so the jump is never visible.
+ * Only the panel lives inside <AnimatePresence>; the page content is a sibling.
+ * Keeping the routes out of it matters: `AnimatePresence initial={false}` makes
+ * its whole subtree skip entry animations on first render, which silently
+ * disabled every scroll reveal on a fresh load and hid the real bug.
  */
-
-/** Runs on mount, i.e. once the panel is covering the screen. */
 function ScrollReset() {
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  }, [])
-  return null
-}
-
-/** No panel to hide the jump, so just reset on every route change. */
-function PlainScrollReset() {
   const { pathname } = useLocation()
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
@@ -38,19 +29,20 @@ export default function PageTransition({ children }) {
   if (reduced) {
     return (
       <>
-        <PlainScrollReset />
+        <ScrollReset />
         {children}
       </>
     )
   }
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <motion.div key={pathname}>
-        <ScrollReset />
-        {children}
+    <>
+      <ScrollReset />
+      {children}
 
+      <AnimatePresence mode="wait" initial={false}>
         <motion.div
+          key={pathname}
           aria-hidden="true"
           className="pointer-events-none fixed inset-0 z-90 grid place-items-center bg-yellow"
           // Mounts already covering, lifts away; on exit it drops back down.
@@ -68,7 +60,7 @@ export default function PageTransition({ children }) {
             <Monogram className="h-12 text-ink md:h-16" />
           </motion.div>
         </motion.div>
-      </motion.div>
-    </AnimatePresence>
+      </AnimatePresence>
+    </>
   )
 }
