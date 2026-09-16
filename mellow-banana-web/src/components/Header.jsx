@@ -27,6 +27,8 @@ export default function Header() {
   const { pathname } = useLocation()
   const [open, setOpen] = useState(false)
   const [hidden, setHidden] = useState(false)
+  // True while the header sits over the home hero (the reel), which is light.
+  const [overHero, setOverHero] = useState(pathname === '/')
 
   // Close the overlay on navigation.
   useEffect(() => setOpen(false), [pathname])
@@ -39,17 +41,20 @@ export default function Header() {
     }
   }, [open])
 
-  // Hide on scroll down, reveal on scroll up.
+  // Hide on scroll down, reveal on scroll up. Also tracks whether the header is
+  // still over the hero: it is `min-h-svh`, so "over it" is the first viewport.
   useEffect(() => {
     let last = window.scrollY
     const onScroll = () => {
       const y = window.scrollY
       setHidden(y > 140 && y > last)
+      setOverHero(pathname === '/' && y < window.innerHeight - 100)
       last = y
     }
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [pathname])
 
   return (
     <>
@@ -67,7 +72,12 @@ export default function Header() {
       >
         <div className="shell flex items-center justify-between py-6 md:py-7">
           <Link to="/" aria-label="Mellow & Banana — home" className="relative z-10">
-            <Wordmark className="h-4 text-yellow transition-opacity duration-500 hover:opacity-70 md:h-[1.15rem]" />
+            {/* Black over the reel (the client's call), white over the black pages and the open menu. */}
+            <Wordmark
+              className={`h-4 transition-[color,opacity] duration-500 hover:opacity-70 md:h-[1.15rem] ${
+                overHero && !open ? 'text-ink' : 'text-white'
+              }`}
+            />
           </Link>
 
           {/* desktop nav */}

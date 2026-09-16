@@ -1,4 +1,3 @@
-import { Wordmark } from './Brand'
 import { contact, socials } from '../data/site'
 import { useLang } from '../i18n/useLang'
 
@@ -9,10 +8,7 @@ export default function Footer() {
   return (
     <footer className="bg-ink text-white">
       <div className="shell py-12 md:py-14">
-        <div className="grid gap-10 md:grid-cols-[auto_1fr_1fr_auto] md:items-start md:gap-12">
-          {/* Sized by width so it scales with the screen: full width on phones, ~30vw on desktop. */}
-          <Wordmark fluid className="w-full text-white md:w-[clamp(20rem,30vw,34rem)]" />
-
+        <div className="grid gap-10 md:grid-cols-[1fr_1fr_auto] md:items-start md:gap-12">
           <div className="text-meta">
             <p className="text-yellow">{t('footer.jobs')}</p>
             <a href={`mailto:${contact.email}`} className="link-underline mt-1 inline-block">
