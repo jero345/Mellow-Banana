@@ -1,4 +1,4 @@
-import { Monogram } from './Brand'
+import { Wordmark } from './Brand'
 import { contact, socials } from '../data/site'
 import { useLang } from '../i18n/useLang'
 
@@ -10,7 +10,8 @@ export default function Footer() {
     <footer className="bg-ink text-white">
       <div className="shell py-12 md:py-14">
         <div className="grid gap-10 md:grid-cols-[auto_1fr_1fr_auto] md:items-start md:gap-12">
-          <Monogram className="h-9 text-yellow md:h-10" />
+          {/* Sized by width so it scales with the screen: full width on phones, ~30vw on desktop. */}
+          <Wordmark fluid className="w-full text-yellow md:w-[clamp(20rem,30vw,34rem)]" />
 
           <div className="text-meta">
             <p className="text-yellow">{t('footer.jobs')}</p>
