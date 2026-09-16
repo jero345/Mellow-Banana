@@ -1,4 +1,4 @@
-import { Monogram, Wordmark } from './Brand'
+import { Wordmark } from './Brand'
 
 /**
  * The strip the page scrolls off to uncover: a yellow band with the giant black
@@ -15,10 +15,9 @@ import { Monogram, Wordmark } from './Brand'
 export default function FooterReveal() {
   return (
     <div aria-hidden="true" className="sticky bottom-0 -z-10 bg-yellow text-ink">
-      <div className="shell pt-28 pb-6 md:pt-40 md:pb-8">
-        {/* The wordmark is a 10:1 strip — too thin on a phone, so the monogram takes over there. */}
-        <Wordmark fluid className="hidden w-full md:block" />
-        <Monogram fluid className="mx-auto w-3/4 md:hidden" />
+      {/* The full wordmark everywhere, phones included — the client does not want the monogram here. */}
+      <div className="shell pt-20 pb-5 md:pt-40 md:pb-8">
+        <Wordmark fluid className="w-full" />
       </div>
     </div>
   )
