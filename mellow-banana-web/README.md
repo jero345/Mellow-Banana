@@ -18,7 +18,7 @@ npm run preview    # sirve el build
 
 | Ruta          | Artboard del PDF                | Notas                                                    |
 | ------------- | ------------------------------- | -------------------------------------------------------- |
-| `/`           | pág. 1 — Home                   | hero + reel, carrusel de proyectos, recientes, clientes  |
+| `/`           | pág. 1 — Home                   | hero + reel, carrusel de proyectos destacados, clientes  |
 | `/work`       | (implícita en “Ver más (+)”)    | grilla filtrable por Marca / Estrategia / Empaque        |
 | `/work/:slug` | pág. 2 — caso Federación        | caso completo por datos; los demás con portada + intro   |
 | `/about`      | pág. 3 — About                  | secciones 01→05                                          |
@@ -63,11 +63,28 @@ objeto y no como una pila de efectos suelta.
 | Hero                 | El titular se desvanece y el orbe deriva y se encoge con el scroll; el bloom respira y un anillo pulsa en reposo. |
 | About → pilares      | En pantallas anchas el título y la descripción quedan fijos mientras sus tres casos pasan al lado. |
 | Menú móvil           | El panel se abre con un clip-path y cada ítem sube desde su caja.         |
+| `FooterReveal`       | Al final del scroll el footer se desliza y destapa el wordmark gigante en amarillo (como el footer de saffron-consultants.com). |
 
 **Reduced motion**: `<MotionConfig reducedMotion="user">` envuelve toda la app,
 así que cada componente lo respeta sin chequearlo por su cuenta. Con la
 preferencia activa no hay intro, ni persiana, ni cursor, ni barra de progreso, ni
 parallax: la página queda estática y completa.
+
+### El footer que se destapa (`FooterReveal`)
+
+Es puro CSS, copiado del mecanismo de Saffron: la banda con el wordmark es el
+**último elemento del documento** con `position: sticky; bottom: 0`, así que
+queda pegada al borde inferior del viewport durante todo el scroll, y la página
+(que es opaca) pasa por encima hasta descubrirla al final.
+
+Va con `z-index` **negativo** en vez de subir `<main>` a un stacking context
+propio: el modal del reel se renderiza dentro de la página sin portal, y un
+`z-index` en `<main>` lo dejaría atrapado debajo del header. Por eso `<main>`
+lleva `bg-ink` explícito: todo lo que va encima de la banda tiene que ser opaco.
+
+Si algún día un ancestro de la banda recibe `overflow: hidden`, el sticky deja
+de funcionar. El `overflow-x: hidden` del `body` no molesta porque se propaga al
+viewport.
 
 ### Dos trampas que ya costaron caro
 
@@ -103,9 +120,8 @@ persiana**; las rutas son hermanas, no descendientes.
   flechas amarillas sobre la costura. Usa scroll-snap nativo, así que arrastre
   táctil y teclado funcionan sin JS extra.
 - **`HeroVideo`** — el reel corriendo de fondo en el hero: corte sin audio, en
-  loop, que aparece con fade sobre su poster. Va desaturado y bajo un scrim para
-  que la paleta siga siendo negro + amarillo y el titular amarillo se lea sobre
-  cualquier frame (verificado: 9.1:1 de contraste en el frame más claro).
+  loop, que aparece con fade sobre su poster. Va **a color, sin velo ni
+  degradado de ningún tipo** (pedido del cliente): el reel se ve tal cual.
   Sirve 720p en pantallas angostas y 1080p desde 1024 px, y con
   `prefers-reduced-motion` o Data Saver no carga video: solo el poster.
 - **`ReelModal`** — el orbe “Play Reel” abre el reel completo con audio. Ese

@@ -2,6 +2,7 @@ import { MotionConfig } from 'motion/react'
 import { Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import FooterReveal from './components/FooterReveal'
 import WhatsappButton from './components/WhatsappButton'
 import Intro from './motion/Intro'
 import Cursor from './motion/Cursor'
@@ -25,7 +26,8 @@ export default function App() {
       <Header />
 
       <PageTransition>
-        <main id="main">
+        {/* Opaque, so it covers the sticky wordmark underneath until the end of the scroll. */}
+        <main id="main" className="bg-ink">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/work" element={<Work />} />
@@ -37,6 +39,7 @@ export default function App() {
         </main>
 
         <Footer />
+        <FooterReveal />
       </PageTransition>
 
       {/* Always reachable, so it sits outside the page transition. */}

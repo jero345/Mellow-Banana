@@ -1,9 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import Reveal from '../components/Reveal'
 import Pill from '../components/Pill'
-import CursorLabel from '../components/CursorLabel'
 import ProjectCarousel from '../components/ProjectCarousel'
 import HeroVideo from '../components/HeroVideo'
 import ReelModal from '../components/ReelModal'
@@ -11,10 +9,9 @@ import ReelOrb, { StaticReelButton, useFinePointer } from '../components/ReelOrb
 import ClientWall from '../components/ClientWall'
 import CtaBand from '../components/CtaBand'
 import AnimatedText from '../motion/AnimatedText'
-import RevealImage from '../motion/RevealImage'
 import { EASE, DUR } from '../motion/tokens'
 import { useLang } from '../i18n/useLang'
-import { CATEGORIES, featuredProjects, recent } from '../data/projects'
+import { CATEGORIES, featuredProjects } from '../data/projects'
 
 /* ─────────────────────────────── Hero ─────────────────────────────── */
 
@@ -84,28 +81,6 @@ function Hero({ onPlay }) {
   )
 }
 
-/* ────────────────────────────── Intro ─────────────────────────────── */
-
-function Intro() {
-  const { t } = useLang()
-
-  return (
-    <section className="shell py-20 md:py-32">
-      <AnimatedText
-        as="h2"
-        text={t('home.intro.title')}
-        className="text-display text-yellow"
-      />
-      <Reveal delay={220}>
-        {/* Sits under the heading in the left column, as on the artboard. */}
-        <p className="mt-10 max-w-[46ch] text-body text-white/80 md:mt-14">
-          {t('home.intro.body')}
-        </p>
-      </Reveal>
-    </section>
-  )
-}
-
 /* ─────────────────────────── Work carousel ────────────────────────── */
 
 function Work() {
@@ -119,7 +94,7 @@ function Work() {
   }, [filter])
 
   return (
-    <section className="pb-20 md:pb-32">
+    <section className="py-20 md:py-32">
       <div className="shell mb-10 flex flex-wrap items-end justify-between gap-6 md:mb-14">
         <Reveal>
           <h2 className="text-lead">
@@ -152,64 +127,6 @@ function Work() {
   )
 }
 
-/* ───────────────────────── Recent projects ────────────────────────── */
-
-function Recent() {
-  const { t, f } = useLang()
-
-  return (
-    <section className="bg-paper text-ink">
-      <div className="shell py-20 md:py-28">
-        <Reveal>
-          <h2 className="text-lead">{t('home.recent.title')}</h2>
-        </Reveal>
-
-        <div className="mt-10 grid gap-x-8 gap-y-14 md:mt-14 md:grid-cols-3">
-          {recent.map((item, i) => {
-            const media = (
-              <RevealImage
-                src={item.image}
-                alt=""
-                className="rounded-xl bg-black/5"
-                imgClassName="aspect-4/5 transition-transform duration-1100 ease-brand group-hover:scale-[1.04]"
-              />
-            )
-
-            const body = (
-              <>
-                <AnimatedText
-                  as="h3"
-                  text={f(item.title)}
-                  className="mt-5 text-lead leading-snug"
-                  delay={0.1 + i * 0.1}
-                  stagger={0.018}
-                />
-                <Reveal delay={260 + i * 100}>
-                  <p className="mt-4 text-meta text-ink/70">{f(item.body)}</p>
-                </Reveal>
-              </>
-            )
-
-            return item.slug ? (
-              <CursorLabel key={f(item.title)} label={t('home.recent.read')} variant="circle" as="article">
-                <Link to={`/work/${item.slug}`} className="group block">
-                  {media}
-                  {body}
-                </Link>
-              </CursorLabel>
-            ) : (
-              <article key={f(item.title)} className="group">
-                {media}
-                {body}
-              </article>
-            )
-          })}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 /* ───────────────────────────── Clients ────────────────────────────── */
 
 function Clients() {
@@ -237,9 +154,7 @@ export default function Home() {
   return (
     <>
       <Hero onPlay={() => setReelOpen(true)} />
-      <Intro />
       <Work />
-      <Recent />
       <Clients />
       <CtaBand />
       <ReelModal open={reelOpen} onClose={() => setReelOpen(false)} />

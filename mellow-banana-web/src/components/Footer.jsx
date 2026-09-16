@@ -7,7 +7,10 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-ink text-white">
+    // The bottom hairline is the edge that wipes across the giant wordmark
+    // in <FooterReveal>; without it the black footer over the black strip
+    // reads as the logo simply growing.
+    <footer className="border-b border-hairline bg-ink text-white">
       <div className="shell py-12 md:py-14">
         <div className="grid gap-10 md:grid-cols-[auto_1fr_1fr_auto] md:items-start md:gap-12">
           <Monogram className="h-9 text-yellow md:h-10" />
