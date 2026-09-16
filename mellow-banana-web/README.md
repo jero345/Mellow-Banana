@@ -63,7 +63,7 @@ objeto y no como una pila de efectos suelta.
 | Hero                 | El titular se desvanece y el orbe deriva y se encoge con el scroll; el bloom respira y un anillo pulsa en reposo. |
 | About → pilares      | En pantallas anchas el título y la descripción quedan fijos mientras sus tres casos pasan al lado. |
 | Menú móvil           | El panel se abre con un clip-path y cada ítem sube desde su caja.         |
-| `FooterReveal`       | Al final del scroll el footer se desliza y destapa el wordmark gigante en amarillo (como el footer de saffron-consultants.com). |
+| `FooterReveal`       | Al final del scroll el footer se desliza y destapa una banda amarilla con el wordmark gigante en negro (como el footer de saffron-consultants.com). |
 
 **Reduced motion**: `<MotionConfig reducedMotion="user">` envuelve toda la app,
 así que cada componente lo respeta sin chequearlo por su cuenta. Con la
