@@ -3,7 +3,6 @@ import Pill from '../components/Pill'
 import SectionNumber from '../components/SectionNumber'
 import ProjectCard from '../components/ProjectCard'
 import ClientWall from '../components/ClientWall'
-import CtaBand from '../components/CtaBand'
 import AnimatedText from '../motion/AnimatedText'
 import RevealImage from '../motion/RevealImage'
 import { useLang } from '../i18n/useLang'
@@ -165,7 +164,6 @@ export default function About() {
         />
       </Block>
 
-      <CtaBand />
     </>
   )
 }

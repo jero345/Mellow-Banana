@@ -3,7 +3,6 @@ import Reveal from '../components/Reveal'
 import Pill from '../components/Pill'
 import CaseBlock from '../components/CaseBlocks'
 import ProjectCard from '../components/ProjectCard'
-import CtaBand from '../components/CtaBand'
 import NotFound from './NotFound'
 import AnimatedText from '../motion/AnimatedText'
 import RevealImage from '../motion/RevealImage'
@@ -96,7 +95,6 @@ export default function Project() {
         </div>
       </section>
 
-      <CtaBand />
     </>
   )
 }

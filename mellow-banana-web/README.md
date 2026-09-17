@@ -19,6 +19,7 @@ npm run preview    # sirve el build
 | Ruta          | Artboard del PDF                | Notas                                                    |
 | ------------- | ------------------------------- | -------------------------------------------------------- |
 | `/`           | pág. 1 — Home                   | hero + reel, carrusel de proyectos destacados, clientes  |
+| `/privacidad`, `/cookies`, `/terminos` | — | páginas legales (placeholder hasta que el cliente mande los textos) |
 | `/work`       | (implícita en “Ver más (+)”)    | grilla filtrable por Marca / Estrategia / Empaque        |
 | `/work/:slug` | pág. 2 — caso Federación        | caso completo por datos; los demás con portada + intro   |
 | `/about`      | pág. 3 — About                  | secciones 01→05                                          |
@@ -71,6 +72,11 @@ preferencia activa no hay intro, ni persiana, ni cursor, ni barra de progreso, n
 parallax: la página queda estática y completa.
 
 ### El footer que se destapa (`FooterReveal`)
+
+El footer sigue el mockup del cliente: claim "Brands that matters" + botón
+"Conversemos" arriba (reemplaza a la banda amarilla `CtaBand`, que ahora solo
+usa Contact para alojar el formulario), oficina y "Trabaja con nosotros" en el
+medio, y la línea legal abajo. Debajo, la banda amarilla con el wordmark.
 
 Es puro CSS, copiado del mecanismo de Saffron: la banda con el wordmark es el
 **último elemento del documento** con `position: sticky; bottom: 0`, así que

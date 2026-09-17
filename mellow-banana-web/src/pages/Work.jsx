@@ -3,7 +3,6 @@ import { motion, useReducedMotion } from 'motion/react'
 import Reveal from '../components/Reveal'
 import Pill from '../components/Pill'
 import ProjectCard from '../components/ProjectCard'
-import CtaBand from '../components/CtaBand'
 import AnimatedText from '../motion/AnimatedText'
 import { EASE, DUR } from '../motion/tokens'
 import { useLang } from '../i18n/useLang'
@@ -75,7 +74,6 @@ export default function Work() {
         )}
       </section>
 
-      <CtaBand />
     </>
   )
 }

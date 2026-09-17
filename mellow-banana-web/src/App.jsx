@@ -13,6 +13,7 @@ import Work from './pages/Work'
 import Project from './pages/Project'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import Legal from './pages/Legal'
 import NotFound from './pages/NotFound'
 
 export default function App() {
@@ -34,6 +35,9 @@ export default function App() {
             <Route path="/work/:slug" element={<Project />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/privacidad" element={<Legal kind="privacy" />} />
+            <Route path="/cookies" element={<Legal kind="cookies" />} />
+            <Route path="/terminos" element={<Legal kind="terms" />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
 
-function ArrowGlyph() {
+function ArrowGlyph({ className }) {
   return (
-    <span className="relative grid size-7 shrink-0 place-items-center overflow-hidden rounded-full border border-yellow">
+    <span
+      className={`relative grid size-7 shrink-0 place-items-center overflow-hidden rounded-full border ${className}`}
+    >
       <svg
         viewBox="0 0 24 24"
         aria-hidden="true"
-        className="size-3.5 translate-x-0 text-yellow transition-transform duration-500 ease-brand group-hover:translate-x-6"
+        className="size-3.5 translate-x-0 transition-transform duration-500 ease-brand group-hover:translate-x-6"
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
@@ -18,7 +20,7 @@ function ArrowGlyph() {
       <svg
         viewBox="0 0 24 24"
         aria-hidden="true"
-        className="absolute size-3.5 -translate-x-6 text-yellow transition-transform duration-500 ease-brand group-hover:translate-x-0"
+        className="absolute size-3.5 -translate-x-6 transition-transform duration-500 ease-brand group-hover:translate-x-0"
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
@@ -31,21 +33,35 @@ function ArrowGlyph() {
   )
 }
 
+const TONES = {
+  /* Black capsule with a yellow arrow — for the yellow sections. */
+  ink: {
+    shell: 'bg-ink text-white hover:bg-[#151515]',
+    glyph: 'border-yellow text-yellow',
+  },
+  /* Yellow capsule with a black arrow — for the dark footer. */
+  yellow: {
+    shell: 'bg-yellow text-ink hover:bg-white',
+    glyph: 'border-ink text-ink',
+  },
+}
+
 /**
- * The signature pill button: black capsule, label, and an arrow that slides
+ * The signature pill button: a capsule, label, and an arrow that slides
  * through its own circle on hover. Renders as a Link, an <a> or a <button>
- * depending on which prop is supplied.
+ * depending on which prop is supplied. `tone` picks the colourway.
  */
-export default function ArrowButton({ to, href, children, className = '', ...rest }) {
+export default function ArrowButton({ to, href, children, className = '', tone = 'ink', ...rest }) {
+  const colours = TONES[tone]
   const shell =
-    'group inline-flex items-center gap-3 rounded-full bg-ink py-1.5 pr-1.5 pl-6 text-meta ' +
-    'text-white transition-colors duration-500 ease-brand hover:bg-[#151515] ' +
+    'group inline-flex items-center gap-3 rounded-full py-1.5 pr-1.5 pl-6 text-meta ' +
+    `transition-colors duration-500 ease-brand ${colours.shell} ` +
     className
 
   const inner = (
     <>
       <span>{children}</span>
-      <ArrowGlyph />
+      <ArrowGlyph className={colours.glyph} />
     </>
   )
 

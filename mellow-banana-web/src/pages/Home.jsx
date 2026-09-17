@@ -7,7 +7,6 @@ import HeroVideo from '../components/HeroVideo'
 import ReelModal from '../components/ReelModal'
 import ReelOrb, { StaticReelButton, useFinePointer } from '../components/ReelOrb'
 import ClientWall from '../components/ClientWall'
-import CtaBand from '../components/CtaBand'
 import AnimatedText from '../motion/AnimatedText'
 import { EASE, DUR } from '../motion/tokens'
 import { useLang } from '../i18n/useLang'
@@ -156,7 +155,6 @@ export default function Home() {
       <Hero onPlay={() => setReelOpen(true)} />
       <Work />
       <Clients />
-      <CtaBand />
       <ReelModal open={reelOpen} onClose={() => setReelOpen(false)} />
     </>
   )

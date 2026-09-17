@@ -39,9 +39,16 @@ export const dictionary = {
     'cta.button': 'Conversemos',
     'cta.whatsapp': 'Escríbenos por WhatsApp',
 
-    /* footer */
+    /* footer — the claim stays in English, as in the hero. */
+    'footer.claim': 'Brands\nthat matters',
+    'footer.city': 'Bogotá',
     'footer.jobs': 'Trabaja con nosotros',
-    'footer.rights': 'Todos los derechos reservados.',
+    'footer.privacy': 'Política de privacidad',
+    'footer.cookies': 'Política de cookies',
+    'footer.terms': 'Términos y condiciones',
+
+    /* legal pages — placeholder until the client sends the texts. */
+    'legal.soon': 'Este documento estará disponible próximamente.',
 
     /* work index */
     'work.title': 'Proyectos',
@@ -152,8 +159,14 @@ export const dictionary = {
     'cta.button': 'Let’s talk',
     'cta.whatsapp': 'Message us on WhatsApp',
 
+    'footer.claim': 'Brands\nthat matters',
+    'footer.city': 'Bogotá',
     'footer.jobs': 'Work with us',
-    'footer.rights': 'All rights reserved.',
+    'footer.privacy': 'Privacy policy',
+    'footer.cookies': 'Cookie policy',
+    'footer.terms': 'Terms and conditions',
+
+    'legal.soon': 'This document will be available soon.',
 
     'work.title': 'Work',
     'work.lead':
