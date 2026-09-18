@@ -51,13 +51,17 @@ export default function HeroVideo({ progress }) {
 
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-      {/* Shown as shot: full colour, no wash — the reel is the hero, not a texture. */}
-      <motion.div style={drift} className="absolute inset-0">
+      {/*
+        Shown as shot: full colour, no wash — the reel is the hero, not a texture.
+        On portrait screens the 16:9 loop is not blown up to fill the height:
+        it sits complete and centred over black, as the client asked.
+      */}
+      <motion.div style={drift} className="absolute inset-0 bg-ink">
         {/* Poster underneath, so there is never a black flash while loading. */}
         <img
           src={POSTER}
           alt=""
-          className="absolute inset-0 size-full object-cover"
+          className="absolute inset-0 size-full object-cover portrait:object-contain"
           fetchPriority="high"
         />
 
@@ -72,7 +76,7 @@ export default function HeroVideo({ progress }) {
             playsInline
             preload="auto"
             tabIndex={-1}
-            className={`absolute inset-0 size-full object-cover transition-opacity duration-1000 ease-brand ${
+            className={`absolute inset-0 size-full object-cover portrait:object-contain transition-opacity duration-1000 ease-brand ${
               ready ? 'opacity-100' : 'opacity-0'
             }`}
           />

@@ -72,10 +72,14 @@ export default function Header() {
       >
         <div className="shell flex items-center justify-between py-6 md:py-7">
           <Link to="/" aria-label="Mellow & Banana — home" className="relative z-10">
-            {/* Black over the reel (the client's call), white over the black pages and the open menu. */}
+            {/*
+              Black over the reel (the client's call), white over the black pages
+              and the open menu. On portrait screens the reel is letterboxed and
+              the top of the hero is black, so the logo stays white there too.
+            */}
             <Wordmark
               className={`h-4 transition-[color,opacity] duration-500 hover:opacity-70 md:h-[1.15rem] ${
-                overHero && !open ? 'text-ink' : 'text-white'
+                overHero && !open ? 'text-white landscape:text-ink' : 'text-white'
               }`}
             />
           </Link>
