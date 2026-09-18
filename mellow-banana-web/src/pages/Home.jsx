@@ -31,12 +31,7 @@ function Hero({ onPlay }) {
   const drift = reduced ? {} : { y: headlineY, opacity: headlineOpacity }
 
   return (
-    // Portrait: the reel sits as a letterboxed band in the middle, so the
-    // headline moves below it instead of sitting on top of the footage.
-    <section
-      ref={ref}
-      className="relative flex min-h-svh items-center overflow-hidden portrait:items-end portrait:pb-20"
-    >
+    <section ref={ref} className="relative flex min-h-svh items-center overflow-hidden">
       <HeroVideo progress={scrollYProgress} />
 
       {orbFollows ? (
