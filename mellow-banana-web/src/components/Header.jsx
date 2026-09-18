@@ -6,18 +6,20 @@ import { EASE } from '../motion/tokens'
 import { useLang } from '../i18n/useLang'
 import { nav, contact, socials } from '../data/site'
 
-function LangSwitch({ className = '' }) {
+function LangSwitch({ className = '', dark = false }) {
   const { lang, toggle } = useLang()
+  const on = dark ? 'text-ink' : 'text-white'
+  const off = dark ? 'text-ink/45' : 'text-smoke'
   return (
     <button
       type="button"
       onClick={toggle}
       aria-label={lang === 'es' ? 'Switch to English' : 'Cambiar a español'}
-      className={`text-meta tracking-wide ${className}`}
+      className={`text-meta tracking-wide transition-colors duration-500 ${className}`}
     >
-      <span className={lang === 'es' ? 'text-white' : 'text-smoke'}>Es</span>
-      <span className="text-smoke">/</span>
-      <span className={lang === 'en' ? 'text-white' : 'text-smoke'}>En</span>
+      <span className={lang === 'es' ? on : off}>Es</span>
+      <span className={off}>/</span>
+      <span className={lang === 'en' ? on : off}>En</span>
     </button>
   )
 }
@@ -56,6 +58,9 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [pathname])
 
+  // Everything in the bar goes black over the reel, white over the black pages.
+  const dark = overHero && !open
+
   return (
     <>
       <a
@@ -72,10 +77,9 @@ export default function Header() {
       >
         <div className="shell flex items-center justify-between py-6 md:py-7">
           <Link to="/" aria-label="Mellow & Banana — home" className="relative z-10">
-            {/* Black over the reel (the client's call), white over the black pages and the open menu. */}
             <Wordmark
               className={`h-4 transition-[color,opacity] duration-500 hover:opacity-70 md:h-[1.15rem] ${
-                overHero && !open ? 'text-ink' : 'text-white'
+                dark ? 'text-ink' : 'text-white'
               }`}
             />
           </Link>
@@ -87,18 +91,30 @@ export default function Header() {
                 key={item.key}
                 to={item.to}
                 className={({ isActive }) =>
-                  `link-underline text-meta ${isActive ? 'text-white' : 'text-white/85 hover:text-white'}`
+                  `link-underline text-meta transition-colors duration-500 ${
+                    dark
+                      ? isActive
+                        ? 'text-ink'
+                        : 'text-ink/80 hover:text-ink'
+                      : isActive
+                        ? 'text-white'
+                        : 'text-white/85 hover:text-white'
+                  }`
                 }
               >
                 {t(`nav.${item.key}`)}
               </NavLink>
             ))}
-            <LangSwitch className="ml-4" />
+            <LangSwitch className="ml-4" dark={dark} />
           </nav>
 
           {/* mobile trigger */}
-          <div className="flex items-center gap-5 md:hidden">
-            <LangSwitch />
+          <div
+            className={`flex items-center gap-5 transition-colors duration-500 md:hidden ${
+              dark ? 'text-ink' : 'text-white'
+            }`}
+          >
+            <LangSwitch dark={dark} />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
