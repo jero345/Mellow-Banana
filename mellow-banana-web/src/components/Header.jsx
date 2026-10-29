@@ -4,7 +4,8 @@ import { AnimatePresence, motion } from 'motion/react'
 import { Wordmark } from './Brand'
 import { EASE } from '../motion/tokens'
 import { useLang } from '../i18n/useLang'
-import { nav, contact, socials } from '../data/site'
+import { nav } from '../data/site'
+import { useContent } from '../content/useContent'
 
 function LangSwitch({ className = '', dark = false }) {
   const { lang, toggle } = useLang()
@@ -26,6 +27,7 @@ function LangSwitch({ className = '', dark = false }) {
 
 export default function Header() {
   const { t } = useLang()
+  const { contact, socials } = useContent().settings
   const { pathname } = useLocation()
   const [open, setOpen] = useState(false)
   const [hidden, setHidden] = useState(false)

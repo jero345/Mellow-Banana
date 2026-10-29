@@ -5,6 +5,7 @@ export const dictionary = {
     /* nav */
     'nav.work': 'Proyectos',
     'nav.about': 'Nosotros',
+    'nav.services': 'Servicios',
     'nav.contact': 'Contacto',
     'nav.menu': 'Menú',
     'nav.close': 'Cerrar',
@@ -16,9 +17,10 @@ export const dictionary = {
     'home.hero.scroll': 'Desliza',
 
     /* home — intro */
-    'home.intro.title': 'Somos una\nconsultora\nde branding',
+    'home.intro.title': 'Somos una\nconsultora de branding',
     'home.intro.body':
-      'Nuestro trabajo recopila un proceso donde la investigación y estrategia son el sustento principal para construir marcas que conecten con las personas. Encontramos la diferenciación mediante una marca autentica y relevante.',
+      'Construimos marcas desde una visión estratégica. Como consultora de branding, que tiene como centro la creatividad, trabajamos desde una perspectiva que reúne investigación, estrategia y diseño para crear marcas relevantes.',
+    'home.intro.more': 'Más sobre nosotros',
 
     /* home — work carousel */
     'home.work.title': 'Nuestros proyectos',
@@ -43,6 +45,7 @@ export const dictionary = {
     'footer.claim': 'Brands\nthat matters',
     'footer.city': 'Bogotá',
     'footer.jobs': 'Trabaja con nosotros',
+    'footer.new': 'Nuevos proyectos',
     'footer.privacy': 'Política de privacidad',
     'footer.cookies': 'Política de cookies',
     'footer.terms': 'Términos y condiciones',
@@ -59,6 +62,14 @@ export const dictionary = {
     'work.filter.estrategia': 'Estrategia',
     'work.filter.empaque': 'Empaque',
     'work.count': 'proyectos',
+    'work.industry.food': 'Food & Beverage',
+    'work.industry.sports': 'Sports & Culture',
+    'work.industry.restaurant': 'Restaurant & Hospitality',
+    'work.industry.consumer': 'Consumer Brands',
+    'work.industry.beauty': 'Beauty & Wellness',
+    'work.industry.corporate': 'Corporate & Professional Services',
+    'work.industry.realestate': 'Real Estate & Places',
+    'work.industry.tech': 'Technology & Innovation',
     'work.empty': 'No hay proyectos en esta categoría todavía.',
 
     /* project detail */
@@ -71,34 +82,59 @@ export const dictionary = {
     'project.soon': 'Caso de estudio completo próximamente.',
 
     /* about */
-    'about.01.eyebrow': 'Somos Mellow & Banana.',
+    'about.01.eyebrow': 'Brands that matter',
     'about.01.body':
-      'Construimos marcas con sentido, unimos estrategia, diseño y emoción para crear universos visuales que conectan con las personas.',
-    'about.02.p1':
-      'Como individuos nos venden productos y servicios, pero realmente compramos emociones, conectamos con marcas que cuentan con un propósito detrás.',
-    'about.02.p2':
       'Las marcas tienen el poder de transformar la forma en la que vivimos y nos conectamos, adoptamos el diseño como un vehículo de transformación social. Entendemos el mundo a través de las marcas y sabemos el poder que tienen para generar cambio.',
-    'about.03.title': 'Qué hacemos',
-    'about.04.title': 'Clientes',
+    'about.02.body':
+      'Como consultora de branding que tiene como centro la creatividad, trabajamos desde una perspectiva que reúne investigación, estrategia y diseño para crear marcas atemporales que se adapten a mercados dinámicos y cambiantes. Nos mueve crear marcas humanas con propósitos que logren conectar con sus consumidores y logren mover el mundo positivamente.',
+    'about.03.title': 'Cómo lo hacemos',
+    'about.04.title': 'La vida en Mellow',
     'about.04.body':
-      'Colaboramos con empresas consolidadas y nuevos emprendimientos que buscan construir una marca clara, relevante y bien diseñada.',
-    'about.05.title': 'El Equipo',
-    'about.05.body':
-      'Un equipo pequeño y multidisciplinar: estrategas, diseñadores y redactores trabajando en la misma mesa, del insight a la ejecución.',
-    'about.05.alt': 'El estudio de Mellow & Banana trabajando',
+      'Todo comienza con nuestra gente. Detrás de cada idea, hay un equipo que la hace realidad.',
+    'about.04.alt': 'El equipo de Mellow & Banana en el estudio',
+    'about.pillar.alt': 'Ejemplo de {title} en un proyecto de Mellow & Banana',
 
     'pillar.landscape.title': 'Landscape',
     'pillar.landscape.body':
-      'Partimos del contexto, analizamos mercado, consumidores y tendencias desde una mirada cualitativa. Ese entendimiento guía toda nuestra estrategia.',
+      'Iniciamos cada proyecto analizando el contexto, la categoría y el panorama competitivo. A través de detección de tendencias construimos una base para definir la estrategia.',
     'pillar.strategy.title': 'Brand Strategy',
     'pillar.strategy.body':
-      'Para nosotros, el branding comienza con estrategia. Es la base que guía cada decisión y nos permite construir marcas coherentes, con sentido y cercanas al consumidor.',
+      'Construir una base estratégica que oriente el diseño de marca, defina su comportamiento y establezca un territorio claro para garantizar una implementación coherente.',
     'pillar.design.title': 'Brand Design',
     'pillar.design.body':
-      'Construimos un universo visual coherente para cada marca, con un lenguaje gráfico propio que transmite su esencia y la diferencia de otras marcas.',
+      'Diseñar los elementos esenciales de la marca y estructurar un sistema visual que garantice diferenciación y correcta aplicación más allá del logotipo.',
     'pillar.guidelines.title': 'Brand Guidelines',
     'pillar.guidelines.body':
-      'Interpretamos el contexto de la marca y definimos sus assets clave, asegurando una implementación coherente. Este punto establece los lineamientos para su ejecución y gestión.',
+      'Desarrollar una estrategia de comunicación con ejes creativos claros, junto con la entrega del Brandbook y los artes finales aprobados.',
+
+    /* services — the claim stays in English, as on the artboard. */
+    'services.title': 'Servicios',
+    'services.claim': 'We believe the simplest brands always win..',
+    'service.strategy.title': 'Brand Strategy',
+    'service.strategy.lead': 'Construimos la dirección estratégica que hace crecer una marca.',
+    'service.strategy.1': 'Investigación de marca',
+    'service.strategy.2': 'Concepto de marca',
+    'service.strategy.3': 'Posicionamiento de marca',
+    'service.strategy.4': 'Arquitectura de marca',
+    'service.strategy.5': 'Naming',
+    'service.strategy.6': 'Estrategia de comunicación y contenido',
+    /* Brand Design and Experience are not detailed on the artboard — draft copy for the client to confirm. */
+    'service.design.title': 'Brand Design',
+    'service.design.lead': 'Diseñamos el sistema visual que hace reconocible a una marca.',
+    'service.design.1': 'Identidad visual',
+    'service.design.2': 'Sistema gráfico',
+    'service.design.3': 'Packaging',
+    'service.design.4': 'Editorial',
+    'service.design.5': 'Ilustración',
+    'service.design.6': 'Brandbook',
+    'service.experience.title': 'Experience',
+    'service.experience.lead': 'Llevamos la marca a cada punto de contacto con las personas.',
+    'service.experience.1': 'Brand experience',
+    'service.experience.2': 'Campañas',
+    'service.experience.3': 'Motion graphics',
+    'service.experience.4': 'Contenido digital',
+    'service.experience.5': 'Activaciones y espacios',
+    'services.open': 'Ver detalle de',
 
     /* contact */
     'contact.title': 'Hablemos!',
@@ -131,6 +167,7 @@ export const dictionary = {
   en: {
     'nav.work': 'Work',
     'nav.about': 'About',
+    'nav.services': 'Services',
     'nav.contact': 'Contact',
     'nav.menu': 'Menu',
     'nav.close': 'Close',
@@ -140,9 +177,10 @@ export const dictionary = {
     'home.hero.play': 'Play Reel',
     'home.hero.scroll': 'Scroll',
 
-    'home.intro.title': 'We are a\nbranding\nconsultancy',
+    'home.intro.title': 'We are a\nbranding consultancy',
     'home.intro.body':
-      'Our work follows a process where research and strategy are the main support for building brands that connect with people. We find differentiation through an authentic, relevant brand.',
+      'We build brands from a strategic vision. As a branding consultancy centred on creativity, we work from a perspective that brings together research, strategy and design to create relevant brands.',
+    'home.intro.more': 'More about us',
 
     'home.work.title': 'Our projects',
     'home.work.more': 'See more projects (+)',
@@ -162,6 +200,7 @@ export const dictionary = {
     'footer.claim': 'Brands\nthat matters',
     'footer.city': 'Bogotá',
     'footer.jobs': 'Work with us',
+    'footer.new': 'New projects',
     'footer.privacy': 'Privacy policy',
     'footer.cookies': 'Cookie policy',
     'footer.terms': 'Terms and conditions',
@@ -176,6 +215,14 @@ export const dictionary = {
     'work.filter.estrategia': 'Strategy',
     'work.filter.empaque': 'Packaging',
     'work.count': 'projects',
+    'work.industry.food': 'Food & Beverage',
+    'work.industry.sports': 'Sports & Culture',
+    'work.industry.restaurant': 'Restaurant & Hospitality',
+    'work.industry.consumer': 'Consumer Brands',
+    'work.industry.beauty': 'Beauty & Wellness',
+    'work.industry.corporate': 'Corporate & Professional Services',
+    'work.industry.realestate': 'Real Estate & Places',
+    'work.industry.tech': 'Technology & Innovation',
     'work.empty': 'No projects in this category yet.',
 
     'project.category': 'Category:',
@@ -186,34 +233,57 @@ export const dictionary = {
     'project.next': 'Next project',
     'project.soon': 'Full case study coming soon.',
 
-    'about.01.eyebrow': 'We are Mellow & Banana.',
+    'about.01.eyebrow': 'Brands that matter',
     'about.01.body':
-      'We build brands with meaning, joining strategy, design and emotion to create visual universes that connect with people.',
-    'about.02.p1':
-      'As individuals we are sold products and services, but what we really buy is emotion — we connect with brands that have a purpose behind them.',
-    'about.02.p2':
       'Brands have the power to transform the way we live and connect. We take design as a vehicle for social transformation. We understand the world through brands and we know the power they hold to create change.',
-    'about.03.title': 'What we do',
-    'about.04.title': 'Clients',
+    'about.02.body':
+      'As a branding consultancy centred on creativity, we work from a perspective that brings together research, strategy and design to create timeless brands that adapt to dynamic, changing markets. We are driven to create human brands with purposes that connect with their consumers and move the world in a positive direction.',
+    'about.03.title': 'How we do it',
+    'about.04.title': 'Life at Mellow',
     'about.04.body':
-      'We collaborate with established companies and new ventures looking to build a clear, relevant and well-designed brand.',
-    'about.05.title': 'The Team',
-    'about.05.body':
-      'A small, multidisciplinary team: strategists, designers and writers working at the same table, from insight to execution.',
-    'about.05.alt': 'The Mellow & Banana studio at work',
+      'Everything starts with our people. Behind every idea, there is a team that makes it happen.',
+    'about.04.alt': 'The Mellow & Banana team at the studio',
+    'about.pillar.alt': '{title} example from a Mellow & Banana project',
 
     'pillar.landscape.title': 'Landscape',
     'pillar.landscape.body':
-      'We start from context, analysing market, consumers and trends through a qualitative lens. That understanding guides our whole strategy.',
+      'We begin every project by analysing the context, the category and the competitive landscape. Through trend detection we build a foundation to define the strategy.',
     'pillar.strategy.title': 'Brand Strategy',
     'pillar.strategy.body':
-      'For us, branding begins with strategy. It is the base that guides every decision and lets us build coherent brands that make sense and stay close to the consumer.',
+      'Building a strategic foundation that guides the brand design, defines its behaviour and sets a clear territory to ensure coherent implementation.',
     'pillar.design.title': 'Brand Design',
     'pillar.design.body':
-      'We build a coherent visual universe for every brand, with a graphic language of its own that carries its essence and sets it apart.',
+      'Designing the brand’s essential elements and structuring a visual system that ensures differentiation and correct application beyond the logo.',
     'pillar.guidelines.title': 'Brand Guidelines',
     'pillar.guidelines.body':
-      'We interpret the brand’s context and define its key assets, ensuring coherent implementation. This sets the guidelines for its execution and management.',
+      'Developing a communication strategy with clear creative pillars, along with the delivery of the Brandbook and the approved final artwork.',
+
+    'services.title': 'Services',
+    'services.claim': 'We believe the simplest brands always win..',
+    'service.strategy.title': 'Brand Strategy',
+    'service.strategy.lead': 'We build the strategic direction that makes a brand grow.',
+    'service.strategy.1': 'Brand research',
+    'service.strategy.2': 'Brand concept',
+    'service.strategy.3': 'Brand positioning',
+    'service.strategy.4': 'Brand architecture',
+    'service.strategy.5': 'Naming',
+    'service.strategy.6': 'Communication and content strategy',
+    'service.design.title': 'Brand Design',
+    'service.design.lead': 'We design the visual system that makes a brand recognisable.',
+    'service.design.1': 'Visual identity',
+    'service.design.2': 'Graphic system',
+    'service.design.3': 'Packaging',
+    'service.design.4': 'Editorial',
+    'service.design.5': 'Illustration',
+    'service.design.6': 'Brandbook',
+    'service.experience.title': 'Experience',
+    'service.experience.lead': 'We take the brand to every point where it meets people.',
+    'service.experience.1': 'Brand experience',
+    'service.experience.2': 'Campaigns',
+    'service.experience.3': 'Motion graphics',
+    'service.experience.4': 'Digital content',
+    'service.experience.5': 'Activations and spaces',
+    'services.open': 'Show details for',
 
     'contact.title': 'Let’s talk!',
     'contact.p1': 'We are a branding consultancy centred on creativity.',

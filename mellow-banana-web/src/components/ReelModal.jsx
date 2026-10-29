@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { useLang } from '../i18n/useLang'
+import { useContent } from '../content/useContent'
 
 export default function ReelModal({ open, onClose }) {
   const { t } = useLang()
+  const { media } = useContent().settings
   const videoRef = useRef(null)
   const closeRef = useRef(null)
 
@@ -64,8 +66,8 @@ export default function ReelModal({ open, onClose }) {
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <video
         ref={videoRef}
-        src="/media/reel.mp4"
-        poster="/media/reel-poster.jpg"
+        src={media.reel}
+        poster={media.poster}
         controls
         playsInline
         preload="metadata"

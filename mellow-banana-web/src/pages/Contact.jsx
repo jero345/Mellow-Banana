@@ -3,10 +3,11 @@ import CtaBand from '../components/CtaBand'
 import ContactForm from '../components/ContactForm'
 import AnimatedText from '../motion/AnimatedText'
 import { useLang } from '../i18n/useLang'
-import { contact } from '../data/site'
+import { useContent } from '../content/useContent'
 
 /** One row of the contact table: label on the left, details on the right. */
 function Row({ title, email, delay = 0, last = false }) {
+  const { contact } = useContent().settings
   return (
     <div
       className={`grid gap-6 py-10 md:grid-cols-[1fr_2fr] md:gap-12 md:py-12 ${
@@ -46,6 +47,7 @@ function Row({ title, email, delay = 0, last = false }) {
 
 export default function Contact() {
   const { t } = useLang()
+  const { contact } = useContent().settings
 
   return (
     <>

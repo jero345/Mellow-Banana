@@ -1,4 +1,4 @@
-import { contact } from '../data/site'
+import { useContent } from '../content/useContent'
 import { useLang } from '../i18n/useLang'
 
 /**
@@ -8,6 +8,7 @@ import { useLang } from '../i18n/useLang'
  */
 export default function WhatsappButton({ className = '' }) {
   const { t } = useLang()
+  const { contact } = useContent().settings
 
   return (
     <a

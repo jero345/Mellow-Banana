@@ -7,12 +7,13 @@ import NotFound from './NotFound'
 import AnimatedText from '../motion/AnimatedText'
 import RevealImage from '../motion/RevealImage'
 import { useLang } from '../i18n/useLang'
-import { getProject, projects } from '../data/projects'
+import { useProjects } from '../content/useContent'
 
 export default function Project() {
   const { slug } = useParams()
   const { t, f } = useLang()
-  const project = getProject(slug)
+  const projects = useProjects()
+  const project = projects.find((p) => p.slug === slug)
 
   if (!project) return <NotFound />
 

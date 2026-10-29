@@ -3,7 +3,7 @@ import ArrowButton from './ArrowButton'
 import Reveal from './Reveal'
 import AnimatedText from '../motion/AnimatedText'
 import Magnetic from '../motion/Magnetic'
-import { contact, socials } from '../data/site'
+import { useContent } from '../content/useContent'
 import { useLang } from '../i18n/useLang'
 
 const LEGAL = [
@@ -21,6 +21,7 @@ const LEGAL = [
  */
 export default function Footer() {
   const { t } = useLang()
+  const { contact, newBusiness, socials } = useContent().settings
   const year = new Date().getFullYear()
   // The middle column is wider so the three legal links fit on one line.
   const cols = 'md:grid-cols-[1fr_2fr_auto] md:gap-12'
@@ -48,8 +49,21 @@ export default function Footer() {
             </a>
           </div>
 
-          <div className="md:self-end">
-            <p className="font-normal">{t('footer.jobs')}</p>
+          <div>
+            <p className="font-bold">{t('footer.new')}</p>
+            <ul className="mt-1 space-y-1">
+              {newBusiness.map((mail) => (
+                <li key={mail}>
+                  <a href={`mailto:${mail}`} className="link-underline text-white/85">
+                    {mail}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="font-bold">{t('footer.jobs')}</p>
             <a href={`mailto:${contact.email}`} className="link-underline mt-1 inline-block text-white/85">
               {contact.email}
             </a>

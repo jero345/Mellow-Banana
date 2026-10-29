@@ -310,6 +310,41 @@
     opacity: 0.68;
   }
 
+  /* ── Studio strip (About → "La vida en Mellow") ────────────────────
+     Same seamless-loop trick as the client wall: the photos twice, the
+     track travelling -50%, spacing on the cells' padding.                  */
+
+  .life {
+    overflow: hidden;
+  }
+
+  .life__track {
+    display: flex;
+    width: max-content;
+    animation: cwall-run 60s linear infinite;
+  }
+
+  .life:hover .life__track {
+    animation-play-state: paused;
+  }
+
+  .life__cell {
+    flex: 0 0 auto;
+    width: clamp(15rem, 22.5vw, 27rem);
+    aspect-ratio: 13 / 10;
+    padding-right: clamp(0.5rem, 0.8vw, 1rem);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .life {
+      overflow-x: auto;
+    }
+
+    .life__track {
+      animation: none;
+    }
+  }
+
   /* ── Floating WhatsApp button (<WhatsappButton />) ───────────────── */
 
   .wa-float {

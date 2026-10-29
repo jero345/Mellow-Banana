@@ -1,16 +1,19 @@
 import { useMemo, useRef, useState } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { motion, useReducedMotion, useScroll } from 'motion/react'
 import Reveal from '../components/Reveal'
 import Pill from '../components/Pill'
+import ArrowButton from '../components/ArrowButton'
 import ProjectCarousel from '../components/ProjectCarousel'
 import HeroVideo from '../components/HeroVideo'
 import ReelModal from '../components/ReelModal'
 import ReelOrb, { StaticReelButton, useFinePointer } from '../components/ReelOrb'
 import ClientWall from '../components/ClientWall'
 import AnimatedText from '../motion/AnimatedText'
-import { EASE, DUR } from '../motion/tokens'
+import Magnetic from '../motion/Magnetic'
+import { EASE } from '../motion/tokens'
 import { useLang } from '../i18n/useLang'
-import { CATEGORIES, featuredProjects } from '../data/projects'
+import { CATEGORIES } from '../data/projects'
+import { useProjects } from '../content/useContent'
 
 /* ─────────────────────────────── Hero ─────────────────────────────── */
 
@@ -22,60 +25,48 @@ function Hero({ onPlay }) {
   // otherwise it stays a button under the headline.
   const orbFollows = useFinePointer()
 
-  // Everything in the hero drifts apart as it scrolls away.
+  // Drives the video sinking away as the hero scrolls out.
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const headlineY = useTransform(scrollYProgress, [0, 1], [0, -110])
-  const headlineOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0])
-  const scrollHintOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0])
 
-  const drift = reduced ? {} : { y: headlineY, opacity: headlineOpacity }
-
+  // The artboard shows the reel alone: no headline over it, just the "Ver reel" orb.
   return (
-    <section ref={ref} className="relative flex min-h-svh items-center overflow-hidden">
+    <section ref={ref} className="relative flex min-h-svh items-end overflow-hidden">
       <HeroVideo progress={scrollYProgress} />
 
       {orbFollows ? (
         <ReelOrb hostRef={ref} onPlay={onPlay} label={t('home.hero.play')} />
-      ) : null}
-
-      {/* Above the trigger, and click-through so the hero stays one big button. */}
-      <div className={`shell relative z-20 w-full ${orbFollows ? 'pointer-events-none' : ''}`}>
-        <motion.div style={drift}>
-          <AnimatedText
-            as="h1"
-            text={t('home.hero.line')}
-            className="text-display text-yellow"
-            delay={0.15}
-            stagger={0.08}
-            duration={DUR.slow}
-          />
-        </motion.div>
-
-        {!orbFollows ? (
-          <motion.div
-            initial={reduced ? false : { opacity: 0, scale: 0.86 }}
-            animate={reduced ? undefined : { opacity: 1, scale: 1 }}
-            transition={{ duration: 1.3, ease: EASE, delay: 0.45 }}
-            className="mt-14 flex"
-          >
-            <StaticReelButton onPlay={onPlay} label={t('home.hero.play')} />
-          </motion.div>
-        ) : null}
-
-        <motion.p
-          aria-hidden="true"
-          style={reduced ? {} : { opacity: scrollHintOpacity }}
-          className="mt-16 hidden overflow-hidden text-meta tracking-[0.18em] text-white/35 uppercase md:block"
+      ) : (
+        <motion.div
+          initial={reduced ? false : { opacity: 0, scale: 0.86 }}
+          animate={reduced ? undefined : { opacity: 1, scale: 1 }}
+          transition={{ duration: 1.3, ease: EASE, delay: 0.45 }}
+          className="shell relative z-20 flex w-full justify-center pb-16"
         >
-          <motion.span
-            className="inline-block"
-            animate={reduced ? undefined : { y: [0, 6, 0] }}
-            transition={{ duration: 2.6, ease: 'easeInOut', repeat: Infinity }}
-          >
-            {t('home.hero.scroll')}
-          </motion.span>
-        </motion.p>
-      </div>
+          <StaticReelButton onPlay={onPlay} label={t('home.hero.play')} />
+        </motion.div>
+      )}
+    </section>
+  )
+}
+
+/* ─────────────────────────────── Intro ────────────────────────────── */
+
+function Intro() {
+  const { t } = useLang()
+
+  return (
+    <section className="shell py-24 md:py-36">
+      <AnimatedText as="h2" text={t('home.intro.title')} className="text-title text-yellow" />
+      <Reveal delay={160}>
+        <p className="mt-10 max-w-[66ch] text-body text-white/90">{t('home.intro.body')}</p>
+      </Reveal>
+      <Reveal delay={260} className="mt-12 flex">
+        <Magnetic strength={0.3}>
+          <ArrowButton to="/about" tone="yellow">
+            {t('home.intro.more')}
+          </ArrowButton>
+        </Magnetic>
+      </Reveal>
     </section>
   )
 }
@@ -85,15 +76,17 @@ function Hero({ onPlay }) {
 function Work() {
   const { t } = useLang()
   const [filter, setFilter] = useState(null)
+  const projects = useProjects()
+  const featuredProjects = useMemo(() => projects.filter((p) => p.featured), [projects])
 
   const items = useMemo(() => {
     if (!filter) return featuredProjects
     const matched = featuredProjects.filter((p) => p.categories.includes(filter))
     return matched.length ? matched : featuredProjects
-  }, [filter])
+  }, [filter, featuredProjects])
 
   return (
-    <section className="py-20 md:py-32">
+    <section className="border-t border-hairline py-20 md:py-28">
       <div className="shell mb-10 flex flex-wrap items-end justify-between gap-6 md:mb-14">
         <Reveal>
           <h2 className="text-lead">
@@ -153,6 +146,7 @@ export default function Home() {
   return (
     <>
       <Hero onPlay={() => setReelOpen(true)} />
+      <Intro />
       <Work />
       <Clients />
       <ReelModal open={reelOpen} onClose={() => setReelOpen(false)} />

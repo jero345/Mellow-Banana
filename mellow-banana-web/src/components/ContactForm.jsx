@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../i18n/useLang'
-import { contact } from '../data/site'
+import { useContent } from '../content/useContent'
 
 /** Underlined field, matching the form on the Contact artboard. */
 function Field({ id, label, type = 'text', value, onChange, error, ...rest }) {
@@ -39,6 +39,7 @@ const EMPTY = { name: '', company: '', mail: '', phone: '', message: '' }
  */
 export default function ContactForm() {
   const { t } = useLang()
+  const { contact } = useContent().settings
   const [values, setValues] = useState(EMPTY)
   const [errors, setErrors] = useState({})
   const [sent, setSent] = useState(false)

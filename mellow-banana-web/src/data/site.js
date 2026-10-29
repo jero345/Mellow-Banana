@@ -23,50 +23,47 @@ export const socials = [
 export const nav = [
   { key: 'work', to: '/work' },
   { key: 'about', to: '/about' },
+  { key: 'services', to: '/services' },
   { key: 'contact', to: '/contact' },
 ]
 
-/** "Qué hacemos" — capability tags, in the order shown on the About artboard. */
+/** "Nuevos proyectos" contacts in the footer. */
+export const newBusiness = ['victor@mbanana.co', 'carlos@mbanana.co']
+
+/** Capability tags on the Services artboard, in its reading order. */
 export const capabilities = [
-  'Naming',
   'Brand Strategy',
   'Brand Identity',
+  'Naming',
   'Packaging',
-  'Digital Experiences',
-  'Motion Graphics',
-  'Ilustration',
   'Editorial',
-  'Education',
-  'Brand Voice',
-]
-
-/** Sectors we work in — "Clientes" tag row on the About artboard. */
-export const sectors = [
-  'Art & Culture',
-  'Consumer Brands',
-  'Entertainment',
-  'Fashion',
-  'Fintech',
-  'Beauty',
-  'Technology',
-  'Hospitality & Travel',
-  'Health',
-  'Real Estate',
-  'Education',
-  'Sport',
-  'Drinks & Foods',
+  'Brand Experience',
+  'Motion Graphics',
+  'Campaigns',
+  'Ilustration',
 ]
 
 /**
- * The four service pillars. Each pillar shows three brand examples;
- * `works` maps to project slugs so the cards stay in sync with the work index.
+ * The three services on the Services page. Each one opens to a lead and the
+ * list of deliverables; the copy lives in the dictionary under `service.<key>`.
  */
-export const pillars = [
-  { key: 'landscape', works: ['fcf', 'manantial', 'club-premium'] },
-  { key: 'strategy', works: ['home-burgers', 'jus', 'verano'] },
-  { key: 'design', works: ['manantial', 'fcf', 'verano'] },
-  { key: 'guidelines', works: ['club-premium', 'jus', 'home-burgers'] },
+export const services = [
+  { key: 'strategy', items: 6 },
+  { key: 'design', items: 6 },
+  { key: 'experience', items: 5 },
 ]
+
+/**
+ * "Cómo lo hacemos" — the four steps of the process on the About artboard,
+ * each illustrated with three slides from real projects.
+ */
+export const pillars = ['landscape', 'strategy', 'design', 'guidelines'].map((key) => ({
+  key,
+  images: [1, 2, 3].map((n) => `/assets/how-${key}-${n}.jpg`),
+}))
+
+/** "La vida en Mellow" — the studio photo strip on the About artboard. */
+export const studioLife = [1, 2, 3, 4, 5].map((n) => `/assets/life-${n}.jpg`)
 
 /**
  * Client roster — 33 individual marks in `public/clients`, normalised to flat

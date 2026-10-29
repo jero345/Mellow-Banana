@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { EASE, DUR } from '../motion/tokens'
 import { useReveal } from '../motion/useReveal'
-import { clients } from '../data/site'
+import { useContent } from '../content/useContent'
 
 const ROWS = 3
 /** Seconds per row. Different speeds keep the rows from marching in lockstep. */
@@ -22,22 +22,23 @@ export default function ClientWall({ invert = false }) {
   const reduced = useReducedMotion()
   const ref = useRef(null)
   const visible = useReveal(ref)
+  const { clients } = useContent()
 
   const rows = useMemo(() => {
     const out = Array.from({ length: ROWS }, () => [])
     clients.forEach((client, i) => out[i % ROWS].push(client))
     return out
-  }, [])
+  }, [clients])
 
   const cell = (client, copy, rowIndex) => (
     <li
-      key={`${client.slug}-${copy}`}
+      key={`${client.name}-${copy}`}
       className="cwall__cell"
       // The second copy exists only to make the loop seamless.
       aria-hidden={copy === 1 ? 'true' : undefined}
     >
       <img
-        src={`/clients/${client.slug}.png`}
+        src={client.logo}
         alt={copy === 0 ? client.name : ''}
         loading={rowIndex === 0 && copy === 0 ? 'eager' : 'lazy'}
         width={260}

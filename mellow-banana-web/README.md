@@ -24,6 +24,8 @@ npm run preview    # sirve el build
 | `/work/:slug` | pág. 2 — caso Federación        | caso completo por datos; los demás con portada + intro   |
 | `/about`      | pág. 3 — About                  | secciones 01→05                                          |
 | `/contact`    | pág. 4 — Contact                | tabla de contacto + formulario en la banda amarilla      |
+| `/services`   | `webmb.pdf` pág. 4–5            | acordeón de servicios                                    |
+| `/admin`      | —                               | administrador de contenido (ver abajo)                   |
 
 Es una SPA: cualquier host necesita reescribir todo a `index.html`. Ya están
 `public/_redirects` (Netlify) y `vercel.json` (Vercel).
@@ -140,13 +142,52 @@ persiana**; las rutas son hermanas, no descendientes.
 
 Todo respeta `prefers-reduced-motion`.
 
-## Contenido
+## Contenido y administrador (`/admin`)
 
-Nada de copy está incrustado en los componentes:
+Todo el contenido es editable desde **`/admin`**, sobre Supabase: proyectos y
+casos de estudio por bloques, servicios, “Cómo lo hacemos”, clientes, sectores,
+toda la copia ES/EN, contacto, redes, fotos del estudio y videos del hero.
+Las imágenes y videos se suben al bucket `media`.
 
-- `src/data/site.js` — contacto, redes, nav, capacidades, sectores, clientes.
-- `src/data/projects.js` — catálogo de proyectos y casos de estudio.
-- `src/i18n/dictionary.js` — copy de interfaz en ES/EN.
+Cómo funciona:
+
+- **El sitio nunca espera a la base de datos.** Pinta al instante con el
+  contenido empaquetado (`src/content/defaults.js`, que sale de `src/data/*` y
+  `src/i18n/dictionary.js`) y lo reemplaza por el de Supabase apenas llega. Si
+  Supabase no está configurado o falla, el sitio sigue funcionando igual.
+- **El público lee por REST plano** (`src/content/api.js`), sin `supabase-js`:
+  el cliente completo pesa ~55 KB gzip y solo lo descarga el admin, que va en
+  su propio chunk (`src/admin/`).
+- **Seguridad**: lectura pública, escritura solo para usuarios en
+  `public.admins`, todo con RLS (`supabase/schema.sql`). Al navegador solo
+  llega la *publishable key*; nunca pongas la secret key en variables `VITE_*`.
+- Los cambios se ven al recargar la página, sin redeploy.
+
+### Puesta en marcha (una sola vez)
+
+1. Crea un proyecto en Supabase y, en **SQL Editor**, ejecuta
+   `supabase/schema.sql` completo.
+2. En **Authentication → Sign In / Providers**, desactiva *Allow new users to
+   sign up* (solo entran los usuarios que tú crees).
+3. En **Authentication → Users → Add user**, crea la cuenta del cliente (correo
+   y contraseña) y conviértela en admin en el SQL Editor:
+   ```sql
+   insert into public.admins (user_id)
+   select id from auth.users where email = 'correo@cliente.com';
+   ```
+4. Copia `.env.example` a `.env` con la URL y la publishable key del proyecto
+   (Project Settings → API Keys) y pon las mismas dos variables en Vercel
+   (Settings → Environment Variables). Vuelve a publicar.
+5. Entra a `/admin`: la primera vez ofrece **“Importar contenido actual”**, que
+   copia todo el sitio de hoy a la base de datos.
+
+### Archivos
+
+- `src/data/site.js`, `src/data/projects.js`, `src/i18n/dictionary.js` —
+  contenido empaquetado (respaldo y punto de partida de la importación).
+- `src/content/` — `ContentProvider` (mezcla CMS sobre respaldo),
+  `useContent()` / `useProjects()`, lectura REST.
+- `src/admin/` — el panel: login, pantallas y acceso a datos (`db.js`).
 
 ### Agregar un proyecto
 

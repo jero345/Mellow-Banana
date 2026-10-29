@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion, useTransform } from 'motion/react'
-
-const POSTER = '/media/reel-poster.jpg'
+import { useContent } from '../content/useContent'
 
 /**
  * The reel running as the hero background: a muted, looping, audio-free cut
@@ -17,6 +16,8 @@ const POSTER = '/media/reel-poster.jpg'
  */
 export default function HeroVideo({ progress }) {
   const videoRef = useRef(null)
+  const { media } = useContent().settings
+  const POSTER = media.poster
   const reduced = useReducedMotion()
   const [src, setSrc] = useState(null)
   const [ready, setReady] = useState(false)
@@ -31,8 +32,8 @@ export default function HeroVideo({ progress }) {
     if (reduced || saveData) return
 
     const wide = window.matchMedia('(min-width: 1024px)').matches
-    setSrc(wide ? '/media/hero-loop-1080.mp4' : '/media/hero-loop-720.mp4')
-  }, [])
+    setSrc(wide ? media.heroLoop1080 : media.heroLoop720)
+  }, [media.heroLoop1080, media.heroLoop720])
 
   useEffect(() => {
     const video = videoRef.current

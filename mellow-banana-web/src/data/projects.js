@@ -18,6 +18,18 @@
 
 export const CATEGORIES = ['marca', 'estrategia', 'empaque']
 
+/** Sector filters on the Work index, in the order of the artboard. */
+export const INDUSTRIES = [
+  'food',
+  'sports',
+  'restaurant',
+  'consumer',
+  'beauty',
+  'corporate',
+  'realestate',
+  'tech',
+]
+
 export const projects = [
   /* ───────────────────────── Federación Colombiana de Fútbol ───────────── */
   {
@@ -28,6 +40,7 @@ export const projects = [
     shortTitle: { es: 'Federación Colombiana de Fútbol', en: 'Federación Colombiana de Fútbol' },
     tagline: { es: 'EL RITMO\nQUE NOS UNE', en: 'THE RHYTHM\nTHAT UNITES US' },
     sector: { es: 'Deporte', en: 'Sport' },
+    industry: 'sports',
     categories: ['marca', 'estrategia'],
     cover: '/assets/fcf-hero.jpg',
     coverAlt: {
@@ -255,6 +268,7 @@ export const projects = [
     shortTitle: { es: 'Golty', en: 'Golty' },
     tagline: { es: 'DESPIERTA\nTU GRANDEZA', en: 'AWAKEN\nYOUR GREATNESS' },
     sector: { es: 'Deporte', en: 'Sport' },
+    industry: 'sports',
     categories: ['marca', 'estrategia'],
     cover: '/assets/golty-hero.jpg',
     coverAlt: {
@@ -330,6 +344,7 @@ export const projects = [
     shortTitle: { es: 'Manantial', en: 'Manantial' },
     tagline: { es: 'CUANDO LA\nPUREZA HABLA', en: 'WHEN PURITY\nSPEAKS' },
     sector: { es: 'Drinks & Foods', en: 'Drinks & Foods' },
+    industry: 'food',
     categories: ['marca', 'empaque'],
     cover: '/assets/proj-manantial.jpg',
     coverAlt: {
@@ -399,6 +414,7 @@ export const projects = [
     shortTitle: { es: 'Kumis', en: 'Kumis' },
     tagline: { es: 'EQUILIBRIO\nEN LO SIMPLE', en: 'EQUILIBRIUM\nIN THE SIMPLE' },
     sector: { es: 'Drinks & Foods', en: 'Drinks & Foods' },
+    industry: 'food',
     categories: ['marca', 'empaque'],
     cover: '/assets/kumis-hero.jpg',
     coverAlt: {
@@ -509,6 +525,7 @@ export const projects = [
     shortTitle: { es: 'Club Premium Doble Malta', en: 'Club Premium Doble Malta' },
     tagline: { es: 'UNA NUEVA\nACTITUD', en: 'A NEW\nATTITUDE' },
     sector: { es: 'Drinks & Foods', en: 'Drinks & Foods' },
+    industry: 'food',
     categories: ['marca', 'empaque', 'estrategia'],
     cover: '/assets/proj-club.jpg',
     coverAlt: {
@@ -555,6 +572,7 @@ export const projects = [
     shortTitle: { es: 'Home Burgers', en: 'Home Burgers' },
     tagline: { es: 'EL SABOR\nDE VOLVER', en: 'THE TASTE\nOF COMING BACK' },
     sector: { es: 'Hospitality & Travel', en: 'Hospitality & Travel' },
+    industry: 'restaurant',
     categories: ['marca', 'estrategia'],
     cover: '/assets/more-home.jpg',
     coverAlt: { es: 'Fachada del local de Home Burgers', en: 'Home Burgers storefront' },
@@ -574,6 +592,7 @@ export const projects = [
     shortTitle: { es: 'Jus Dipping Sandwiches', en: 'Jus Dipping Sandwiches' },
     tagline: { es: 'HECHO\nPARA MOJAR', en: 'MADE\nFOR DIPPING' },
     sector: { es: 'Hospitality & Travel', en: 'Hospitality & Travel' },
+    industry: 'restaurant',
     categories: ['marca'],
     cover: '/assets/more-jus.jpg',
     coverAlt: { es: 'Uniforme de Jus Dipping Sandwiches', en: 'Jus Dipping Sandwiches uniform' },
@@ -593,6 +612,7 @@ export const projects = [
     shortTitle: { es: 'Verano', en: 'Verano' },
     tagline: { es: 'DIBUJAR\nEL ANTOJO', en: 'DRAWING\nTHE CRAVING' },
     sector: { es: 'Consumer Brands', en: 'Consumer Brands' },
+    industry: 'consumer',
     categories: ['marca', 'empaque'],
     cover: '/assets/more-verano.jpg',
     coverAlt: { es: 'Pieza ilustrada de la marca Verano', en: 'Illustrated Verano brand piece' },

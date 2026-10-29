@@ -1,5 +1,6 @@
+import { lazy, Suspense } from 'react'
 import { MotionConfig } from 'motion/react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import FooterReveal from './components/FooterReveal'
@@ -12,11 +13,28 @@ import Home from './pages/Home'
 import Work from './pages/Work'
 import Project from './pages/Project'
 import About from './pages/About'
+import Services from './pages/Services'
 import Contact from './pages/Contact'
 import Legal from './pages/Legal'
 import NotFound from './pages/NotFound'
 
+// The CMS is its own app: split out so visitors never download it.
+const AdminApp = lazy(() => import('./admin/AdminApp'))
+
 export default function App() {
+  const { pathname } = useLocation()
+
+  // The admin runs without the site's chrome: no intro, cursor, header or footer.
+  if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+    return (
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/admin/*" element={<AdminApp />} />
+        </Routes>
+      </Suspense>
+    )
+  }
+
   return (
     // `reducedMotion="user"` makes every motion component here respect the OS
     // setting without each one having to check.
@@ -34,6 +52,7 @@ export default function App() {
             <Route path="/work" element={<Work />} />
             <Route path="/work/:slug" element={<Project />} />
             <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacidad" element={<Legal kind="privacy" />} />
             <Route path="/cookies" element={<Legal kind="cookies" />} />

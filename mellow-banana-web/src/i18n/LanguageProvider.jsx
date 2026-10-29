@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { dictionary } from './dictionary'
+import { useContent } from '../content/useContent'
 import { LanguageContext } from './useLang'
 
 const STORAGE_KEY = 'mb-lang'
@@ -12,13 +12,15 @@ function initialLang() {
 
 export function LanguageProvider({ children }) {
   const [lang, setLang] = useState(initialLang)
+  // UI copy comes from the CMS, merged over the bundled dictionary.
+  const dictionary = useContent().translations
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, lang)
     document.documentElement.lang = lang
   }, [lang])
 
-  const t = useCallback((key) => dictionary[lang][key] ?? dictionary.es[key] ?? key, [lang])
+  const t = useCallback((key) => dictionary[lang][key] ?? dictionary.es[key] ?? key, [lang, dictionary])
 
   /** Resolve a { es, en } field from the data layer. */
   const f = useCallback((field) => (field == null ? '' : (field[lang] ?? field.es ?? '')), [lang])

@@ -59,7 +59,8 @@ export default function RevealImage({
       alt={alt}
       width={size?.[0]}
       height={size?.[1]}
-      loading={eager ? 'eager' : 'lazy'}
+      // Unknown size (an image uploaded through the CMS): load eagerly, so the 0px trap above never applies.
+      loading={eager || !size ? 'eager' : 'lazy'}
       initial={reduced ? false : { scale: restScale + 0.06 }}
       animate={reduced ? undefined : { scale: visible ? restScale : restScale + 0.06 }}
       transition={{ duration: 1.5, ease: EASE, delay }}
