@@ -12,7 +12,7 @@ export const dictionary = {
     'nav.skip': 'Ir al contenido',
 
     /* home — hero: the claim stays in English, as on the artboard. */
-    'home.hero.line': 'Brands that matters',
+    'home.hero.line': 'Brands that matter',
     'home.hero.play': 'Ver reel',
     'home.hero.scroll': 'Desliza',
 
@@ -42,7 +42,7 @@ export const dictionary = {
     'cta.whatsapp': 'Escríbenos por WhatsApp',
 
     /* footer — the claim stays in English, as in the hero. */
-    'footer.claim': 'Brands\nthat matters',
+    'footer.claim': 'Brands\nthat matter',
     'footer.city': 'Bogotá',
     'footer.jobs': 'Trabaja con nosotros',
     'footer.new': 'Nuevos proyectos',
@@ -173,7 +173,7 @@ export const dictionary = {
     'nav.close': 'Close',
     'nav.skip': 'Skip to content',
 
-    'home.hero.line': 'Brands that matters',
+    'home.hero.line': 'Brands that matter',
     'home.hero.play': 'Play Reel',
     'home.hero.scroll': 'Scroll',
 
@@ -197,7 +197,7 @@ export const dictionary = {
     'cta.button': 'Let’s talk',
     'cta.whatsapp': 'Message us on WhatsApp',
 
-    'footer.claim': 'Brands\nthat matters',
+    'footer.claim': 'Brands\nthat matter',
     'footer.city': 'Bogotá',
     'footer.jobs': 'Work with us',
     'footer.new': 'New projects',

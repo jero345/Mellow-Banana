@@ -15,9 +15,9 @@ export const contact = {
 }
 
 export const socials = [
+  { label: 'Behance', href: 'https://www.behance.net/mellowbanana' },
   { label: 'Instagram', href: 'https://www.instagram.com/mellowandbanana/' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/company/mellow-banana/' },
-  { label: 'Behance', href: 'https://www.behance.net/mellowbanana' },
 ]
 
 export const nav = [
@@ -28,7 +28,7 @@ export const nav = [
 ]
 
 /** "Nuevos proyectos" contacts in the footer. */
-export const newBusiness = ['victor@mbanana.co', 'carlos@mbanana.co']
+export const newBusiness = ['victor@mmbanana.co', 'carlos@mmbanana.co']
 
 /** Capability tags on the Services artboard, in its reading order. */
 export const capabilities = [

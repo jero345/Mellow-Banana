@@ -43,7 +43,8 @@ export default function RevealImage({
   const rawY = useTransform(scrollYProgress, [0, 1], [`${DRIFT}%`, `${-DRIFT}%`])
   const y = useSpring(rawY, SPRING.parallax)
 
-  const restScale = contain ? 1 : REST_SCALE
+  // The overscale is only headroom for the drift: without drift, show the whole picture.
+  const restScale = contain || !drift ? 1 : REST_SCALE
 
   /*
     Intrinsic size from src/data/imageSizes.json (regenerate it when assets

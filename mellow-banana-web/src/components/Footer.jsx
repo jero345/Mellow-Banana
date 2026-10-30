@@ -27,7 +27,7 @@ export default function Footer() {
   const cols = 'md:grid-cols-[1fr_2fr_auto] md:gap-12'
 
   return (
-    <footer className="bg-[#1a1a1a] text-white">
+    <footer className="bg-ink text-white">
       <div className="shell pt-20 pb-10 md:pt-28 md:pb-12">
         <div className="flex flex-wrap items-end gap-x-8 gap-y-6">
           <AnimatedText as="h2" text={t('footer.claim')} className="text-display" />
